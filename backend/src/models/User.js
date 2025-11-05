@@ -21,6 +21,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  whatsapp: {
+    type: String,
+    trim: true
+  },
+  telegram: {
+    type: String,
+    trim: true
+  },
   address: {
     street: String,
     city: String,

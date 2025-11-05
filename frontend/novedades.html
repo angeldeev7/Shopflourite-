@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novedades - ShopFlourite</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/index.html" class="logo">ShopFlourite</a>
+      <div class="menu-toggle"><span></span><span></span><span></span></div>
+      <ul class="nav-menu">
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="/productos.html">Productos</a></li>
+        <li><a href="/novedades.html" class="active">Novedades</a></li>
+        <li><a href="/soporte.html">Soporte</a></li>
+        <li><a href="/checkout.html" style="position: relative;">🛒<span class="cart-badge">0</span></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div style="padding: 120px 0; min-height: 100vh;">
+    <div class="container">
+      <h1 class="section-title">Novedades y Ofertas</h1>
+      
+      <div class="card glass" style="background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1)); margin-bottom: 2rem;">
+        <h2>🎉 ¡Ofertas Especiales de la Semana!</h2>
+        <p class="text-secondary">Descuentos de hasta 50% en productos seleccionados</p>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card glass">
+          <h3>📱 Nueva Colección Electrónica</h3>
+          <p class="text-secondary">Descubre los últimos gadgets y accesorios tecnológicos</p>
+          <a href="/productos.html?category=electronics" class="btn btn-outline" style="margin-top: 1rem;">Ver Productos</a>
+        </div>
+        <div class="card glass">
+          <h3>👕 Moda de Temporada</h3>
+          <p class="text-secondary">Renueva tu guardarropa con las últimas tendencias</p>
+          <a href="/productos.html?category=clothing" class="btn btn-outline" style="margin-top: 1rem;">Ver Productos</a>
+        </div>
+        <div class="card glass">
+          <h3>🏠 Hogar y Decoración</h3>
+          <p class="text-secondary">Transforma tu espacio con nuestros productos para el hogar</p>
+          <a href="/productos.html?category=home" class="btn btn-outline" style="margin-top: 1rem;">Ver Productos</a>
+        </div>
+      </div>
+
+      <div style="margin-top: 3rem;">
+        <h2 class="section-title">📰 Últimas Noticias</h2>
+        <div class="grid grid-2">
+          <div class="card glass">
+            <h3>Envío Gratis en Compras Superiores a $500</h3>
+            <p class="text-secondary" style="margin-top: 0.5rem;">A partir de ahora, todas las compras superiores a $500 pesos tienen envío gratis a toda la república.</p>
+            <small class="text-muted">1 de Noviembre, 2024</small>
+          </div>
+          <div class="card glass">
+            <h3>Nueva Forma de Pago: Telegram</h3>
+            <p class="text-secondary" style="margin-top: 0.5rem;">Ahora puedes contactarnos directamente por Telegram para procesar tus pedidos de manera más rápida.</p>
+            <small class="text-muted">25 de Octubre, 2024</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+</body>
+</html>

@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
 const { authMiddleware } = require('../middleware/auth');
+const telegramService = require('../services/telegram');
 
 // Register
 router.post('/register', [
@@ -18,7 +19,7 @@ router.post('/register', [
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password, phone, address } = req.body;
+    const { name, email, password, phone, whatsapp, telegram, address } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -32,10 +33,19 @@ router.post('/register', [
       email,
       password: hashedPassword,
       phone,
+      whatsapp,
+      telegram,
       address
     });
 
     await user.save();
+
+    // Notify admin via Telegram
+    try {
+      await telegramService.notifyNewUser(user);
+    } catch (error) {
+      console.error('Telegram notification error:', error);
+    }
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 

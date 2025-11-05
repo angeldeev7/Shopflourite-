@@ -4,6 +4,7 @@ const Order = require('../models/Order');
 const Product = require('../models/Product');
 const { authMiddleware, adminMiddleware } = require('../middleware/auth');
 const upload = require('../middleware/upload');
+const telegramService = require('../services/telegram');
 
 // Create order
 router.post('/', authMiddleware, async (req, res) => {
@@ -53,6 +54,13 @@ router.post('/', authMiddleware, async (req, res) => {
     await order.save();
 
     await order.populate('items.product user');
+
+    // Send Telegram notification
+    try {
+      await telegramService.notifyNewOrder(order);
+    } catch (error) {
+      console.error('Telegram notification error:', error);
+    }
 
     res.status(201).json({ 
       message: 'Order created successfully', 
