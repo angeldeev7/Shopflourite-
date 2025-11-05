@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ShopFlourite - Tu tienda online con los mejores productos y ofertas">
+  <title>ShopFlourite - Inicio</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/index.html" class="logo">ShopFlourite</a>
+      
+      <div class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <ul class="nav-menu">
+        <li><a href="/index.html" class="active">Inicio</a></li>
+        <li><a href="/productos.html">Productos</a></li>
+        <li><a href="/novedades.html">Novedades</a></li>
+        <li><a href="/soporte.html">Soporte</a></li>
+        
+        <!-- Guest Menu -->
+        <li class="guest-menu">
+          <a href="/login.html" class="btn btn-outline">Ingresar</a>
+        </li>
+        <li class="guest-menu">
+          <a href="/registro.html" class="btn btn-primary">Registrarse</a>
+        </li>
+        
+        <!-- User Menu -->
+        <li class="user-menu" style="display: none;">
+          <a href="/perfil.html">Mi Perfil</a>
+        </li>
+        <li class="user-menu" style="display: none;">
+          <a href="/mis-compras.html">Mis Compras</a>
+        </li>
+        <li class="user-menu" style="display: none;">
+          <a href="#" onclick="auth.logout(); return false;">Salir</a>
+        </li>
+        
+        <li>
+          <a href="/checkout.html" style="position: relative;">
+            🛒
+            <span class="cart-badge">0</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="fade-in">Bienvenido a ShopFlourite</h1>
+      <p class="fade-in">Descubre los mejores productos con ofertas exclusivas y envío gratis</p>
+      <div class="fade-in">
+        <a href="/productos.html" class="btn btn-primary">Ver Productos</a>
+        <a href="/novedades.html" class="btn btn-outline" style="margin-left: 1rem;">Novedades</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Productos Destacados</h2>
+      <div id="featured-products" class="grid grid-4">
+        <!-- Products will be loaded here -->
+        <div class="spinner"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Categorías</h2>
+      <div class="grid grid-4">
+        <a href="/productos.html?category=electronics" class="card text-center">
+          <h3>📱 Electrónica</h3>
+          <p class="text-secondary">Últimos gadgets y tecnología</p>
+        </a>
+        <a href="/productos.html?category=clothing" class="card text-center">
+          <h3>👕 Ropa</h3>
+          <p class="text-secondary">Moda y estilo</p>
+        </a>
+        <a href="/productos.html?category=home" class="card text-center">
+          <h3>🏠 Hogar</h3>
+          <p class="text-secondary">Todo para tu casa</p>
+        </a>
+        <a href="/productos.html?category=beauty" class="card text-center">
+          <h3>💄 Belleza</h3>
+          <p class="text-secondary">Cuidado personal</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-3">
+        <div class="card glass text-center">
+          <h3 style="color: var(--neon-green);">🚚 Envío Gratis</h3>
+          <p>En compras mayores a $500</p>
+        </div>
+        <div class="card glass text-center">
+          <h3 style="color: var(--neon-blue);">🔒 Pago Seguro</h3>
+          <p>Protección en todas tus transacciones</p>
+        </div>
+        <div class="card glass text-center">
+          <h3 style="color: var(--neon-pink);">⚡ Entrega Rápida</h3>
+          <p>Recibe tus productos en 3-5 días</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>ShopFlourite</h3>
+          <p class="text-secondary">Tu tienda online de confianza con los mejores productos y ofertas exclusivas.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Enlaces</h3>
+          <ul>
+            <li><a href="/productos.html">Productos</a></li>
+            <li><a href="/novedades.html">Novedades</a></li>
+            <li><a href="/soporte.html">Soporte</a></li>
+            <li><a href="/terminos.html">Términos y Condiciones</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Cuenta</h3>
+          <ul>
+            <li><a href="/perfil.html">Mi Perfil</a></li>
+            <li><a href="/mis-compras.html">Mis Compras</a></li>
+            <li><a href="/login.html">Ingresar</a></li>
+            <li><a href="/registro.html">Registrarse</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contacto</h3>
+          <ul>
+            <li>📧 soporte@shopflourite.com</li>
+            <li>📱 WhatsApp: +52 123 456 7890</li>
+            <li>💬 Telegram: @shopflourite</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 ShopFlourite. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/utils.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+  <script>
+    // Load featured products
+    async function loadFeaturedProducts() {
+      try {
+        const data = await api.getProducts({ featured: true, limit: 8 });
+        const container = document.getElementById('featured-products');
+        
+        if (data.products && data.products.length > 0) {
+          container.innerHTML = data.products.map(product => `
+            <div class="card product-card">
+              ${product.featured ? '<span class="product-badge">Destacado</span>' : ''}
+              <img src="${product.images && product.images[0] || '/images/products/placeholder.jpg'}" 
+                   alt="${product.name}"
+                   onerror="handleImageError(this)">
+              <div class="product-info">
+                <h3 class="product-title">${product.name}</h3>
+                <p class="text-secondary">${truncateText(product.shortDescription || product.description, 60)}</p>
+                <div style="margin-top: 1rem;">
+                  <span class="product-price">${formatCurrency(product.price)}</span>
+                  ${product.originalPrice ? `<span class="product-price-old">${formatCurrency(product.originalPrice)}</span>` : ''}
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                  <a href="/producto-detalle.html?id=${product._id}" class="btn btn-primary" style="flex: 1;">Ver Detalles</a>
+                  <button onclick="cart.addItem(${JSON.stringify(product).replace(/"/g, '&quot;')})" class="btn btn-outline">🛒</button>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        } else {
+          container.innerHTML = '<p class="text-center text-secondary">No hay productos destacados disponibles.</p>';
+        }
+      } catch (error) {
+        console.error('Error loading products:', error);
+        document.getElementById('featured-products').innerHTML = 
+          '<p class="text-center alert alert-error">Error al cargar productos. Inténtalo de nuevo más tarde.</p>';
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      loadFeaturedProducts();
+    });
+  </script>
+</body>
+</html>

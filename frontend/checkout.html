@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito - ShopFlourite</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/index.html" class="logo">ShopFlourite</a>
+      <div class="menu-toggle"><span></span><span></span><span></span></div>
+      <ul class="nav-menu">
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="/productos.html">Productos</a></li>
+        <li class="user-menu" style="display: none;"><a href="/perfil.html">Perfil</a></li>
+        <li class="user-menu" style="display: none;"><a href="/mis-compras.html">Mis Compras</a></li>
+        <li class="user-menu" style="display: none;"><a href="#" onclick="auth.logout(); return false;">Salir</a></li>
+        <li><a href="/checkout.html" class="active" style="position: relative;">🛒<span class="cart-badge">0</span></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div style="padding: 120px 0; min-height: 100vh;">
+    <div class="container">
+      <h1 class="section-title">Carrito de Compras</h1>
+      <div class="grid grid-3">
+        <div style="grid-column: span 2;">
+          <div id="cart-items" class="card glass"></div>
+        </div>
+        <div>
+          <div class="card glass">
+            <h3>Resumen</h3>
+            <div style="margin: 1rem 0; padding: 1rem 0; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <span>Subtotal:</span>
+                <span id="subtotal">$0.00</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <span>Envío:</span>
+                <span>GRATIS</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: 700;">
+                <span>Total:</span>
+                <span id="total" style="color: var(--neon-green);">$0.00</span>
+              </div>
+            </div>
+            <button onclick="proceedToCheckout()" class="btn btn-primary" style="width: 100%;">Proceder al Pago</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+  <script>
+    function displayCart() {
+      const container = document.getElementById('cart-items');
+      if (cart.items.length === 0) {
+        container.innerHTML = '<p class="text-center text-secondary">Tu carrito está vacío</p>';
+        return;
+      }
+
+      container.innerHTML = cart.items.map(item => `
+        <div class="card" style="margin-bottom: 1rem; display: flex; gap: 1rem; align-items: center;">
+          <img src="${item.image}" alt="${item.name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: var(--radius-sm);">
+          <div style="flex: 1;">
+            <h4>${item.name}</h4>
+            <p class="text-secondary">${formatCurrency(item.price)}</p>
+          </div>
+          <input type="number" value="${item.quantity}" min="1" onchange="cart.updateQuantity('${item.id}', this.value); displayCart();" style="width: 60px; padding: 0.5rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); color: white; text-align: center;">
+          <button onclick="cart.removeItem('${item.id}'); displayCart();" class="btn btn-outline">🗑️</button>
+        </div>
+      `).join('');
+
+      const total = cart.getTotal();
+      document.getElementById('subtotal').textContent = formatCurrency(total);
+      document.getElementById('total').textContent = formatCurrency(total);
+    }
+
+    function proceedToCheckout() {
+      if (!auth.isAuthenticated()) {
+        window.location.href = '/login.html?redirect=/checkout.html';
+        return;
+      }
+      if (cart.items.length === 0) {
+        showAlert('Tu carrito está vacío', 'error');
+        return;
+      }
+      // Here you would implement the actual checkout process
+      showAlert('Funcionalidad de pago en desarrollo', 'info');
+    }
+
+    displayCart();
+  </script>
+</body>
+</html>

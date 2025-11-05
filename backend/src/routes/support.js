@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const SupportTicket = require('../models/SupportTicket');
 const { authMiddleware, adminMiddleware } = require('../middleware/auth');
+const telegramService = require('../services/telegram');
 
 // Get user's support tickets
 router.get('/my-tickets', authMiddleware, async (req, res) => {
@@ -109,7 +110,14 @@ router.post('/', authMiddleware, async (req, res) => {
     });
 
     await ticket.save();
-    await ticket.populate('user', 'name email');
+    await ticket.populate('user', 'name email whatsapp telegram');
+
+    // Send Telegram notification
+    try {
+      await telegramService.notifyNewSupportTicket(ticket);
+    } catch (error) {
+      console.error('Telegram notification error:', error);
+    }
 
     res.status(201).json({ 
       message: 'Support ticket created successfully', 

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Compras - ShopFlourite</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/index.html" class="logo">ShopFlourite</a>
+      <div class="menu-toggle"><span></span><span></span><span></span></div>
+      <ul class="nav-menu">
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="/productos.html">Productos</a></li>
+        <li><a href="/perfil.html">Mi Perfil</a></li>
+        <li><a href="/mis-compras.html" class="active">Mis Compras</a></li>
+        <li><a href="#" onclick="auth.logout(); return false;">Salir</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div style="padding: 120px 0; min-height: 100vh;">
+    <div class="container">
+      <h1 class="section-title">Mis Compras</h1>
+      <div id="orders-container"></div>
+    </div>
+  </div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+  <script>
+    if (!auth.requireAuth()) {
+      // Redirect handled by requireAuth
+    }
+
+    async function loadOrders() {
+      try {
+        const data = await api.getMyOrders();
+        const container = document.getElementById('orders-container');
+        
+        if (data.orders && data.orders.length > 0) {
+          container.innerHTML = data.orders.map(order => `
+            <div class="card glass" style="margin-bottom: 1rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <h3>Orden #${order._id.slice(-6)}</h3>
+                  <p class="text-secondary">${formatDate(order.createdAt)}</p>
+                  <p>Total: <span style="color: var(--neon-green);">${formatCurrency(order.totalAmount)}</span></p>
+                </div>
+                <div>
+                  <span class="product-badge">${order.status}</span>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        } else {
+          container.innerHTML = '<p class="text-center text-secondary">No tienes compras aún</p>';
+        }
+      } catch (error) {
+        document.getElementById('orders-container').innerHTML = '<p class="alert alert-error">Error al cargar tus compras</p>';
+      }
+    }
+
+    loadOrders();
+  </script>
+</body>
+</html>

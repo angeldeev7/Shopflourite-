@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Perfil - ShopFlourite</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/index.html" class="logo">ShopFlourite</a>
+      <div class="menu-toggle"><span></span><span></span><span></span></div>
+      <ul class="nav-menu">
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="/productos.html">Productos</a></li>
+        <li><a href="/perfil.html" class="active">Mi Perfil</a></li>
+        <li><a href="/mis-compras.html">Mis Compras</a></li>
+        <li><a href="#" onclick="auth.logout(); return false;">Salir</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div style="padding: 120px 0; min-height: 100vh;">
+    <div class="container">
+      <h1 class="section-title">Mi Perfil</h1>
+      <div class="card glass" style="max-width: 800px; margin: 0 auto;">
+        <form id="profile-form">
+          <div class="grid grid-2">
+            <div class="form-group">
+              <label class="form-label">Nombre</label>
+              <input type="text" id="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" id="email" class="form-control" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label">WhatsApp</label>
+              <input type="tel" id="whatsapp" class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Telegram</label>
+              <input type="text" id="telegram" class="form-control">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+  <script>
+    if (!auth.requireAuth()) {
+      // Redirect handled by requireAuth
+    }
+
+    async function loadProfile() {
+      try {
+        const data = await api.getProfile();
+        document.getElementById('name').value = data.user.name || '';
+        document.getElementById('email').value = data.user.email || '';
+        document.getElementById('whatsapp').value = data.user.whatsapp || '';
+        document.getElementById('telegram').value = data.user.telegram || '';
+      } catch (error) {
+        showAlert('Error al cargar perfil', 'error');
+      }
+    }
+
+    document.getElementById('profile-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        await api.updateProfile({
+          name: document.getElementById('name').value,
+          whatsapp: document.getElementById('whatsapp').value,
+          telegram: document.getElementById('telegram').value
+        });
+        showAlert('Perfil actualizado correctamente', 'success');
+      } catch (error) {
+        showAlert('Error al actualizar perfil', 'error');
+      }
+    });
+
+    loadProfile();
+  </script>
+</body>
+</html>
