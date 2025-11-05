@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ShopFlourite - Tu tienda online de productos exclusivos con diseño neon moderno. Compra fácil y seguro.">
+  <meta name="keywords" content="tienda online, compras, productos, ecommerce, shopflourite">
+  <meta name="author" content="ShopFlourite">
+  <meta property="og:title" content="ShopFlourite - Tienda Online">
+  <meta property="og:description" content="Descubre productos exclusivos con la mejor experiencia de compra">
+  <meta property="og:image" content="/images/og-image.jpg">
+  <meta property="og:url" content="https://shopflourite.com">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>ShopFlourite - Inicio | Tu Tienda Online</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="/index.html" class="logo neon-text">ShopFlourite</a>
+        
+        <nav>
+          <ul>
+            <li><a href="/index.html">Inicio</a></li>
+            <li><a href="/productos.html">Productos</a></li>
+            <li><a href="/novedades.html">Novedades</a></li>
+            <li><a href="/soporte.html">Soporte</a></li>
+            <li>
+              <a href="/checkout.html" style="position: relative;">
+                🛒 Carrito
+                <span class="cart-badge badge" style="position: absolute; top: -8px; right: -8px; display: none;">0</span>
+              </a>
+            </li>
+            <li id="auth-links" style="display: flex; gap: 15px;">
+              <a href="/login.html" class="btn btn-outline" style="padding: 8px 20px;">Iniciar Sesión</a>
+            </li>
+            <li id="user-links" style="display: none; gap: 15px;">
+              <span class="user-name" style="color: var(--primary);"></span>
+              <a href="/perfil.html">Perfil</a>
+              <a href="/mis-compras.html">Mis Compras</a>
+              <a href="#" onclick="logout(); return false;">Salir</a>
+            </li>
+          </ul>
+        </nav>
+        
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero mt-5" style="padding: 120px 0 60px; text-align: center;">
+    <div class="container">
+      <h1 class="neon-text" style="font-size: 48px; margin-bottom: 20px; animation: fadeIn 1s ease;">
+        Bienvenido a ShopFlourite
+      </h1>
+      <p style="font-size: 24px; color: var(--text-secondary); margin-bottom: 40px; animation: fadeIn 1s ease 0.2s; animation-fill-mode: both;">
+        Descubre productos exclusivos con estilo único
+      </p>
+      <div style="animation: fadeIn 1s ease 0.4s; animation-fill-mode: both;">
+        <a href="/productos.html" class="btn btn-primary" style="margin-right: 15px;">
+          Ver Productos
+        </a>
+        <a href="/novedades.html" class="btn btn-secondary">
+          Novedades
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="featured-products mt-5" style="padding: 40px 0;">
+    <div class="container">
+      <h2 class="text-center mb-4" style="font-size: 36px; color: var(--primary);">
+        Productos Destacados
+      </h2>
+      
+      <div id="featured-products" class="grid grid-4">
+        <!-- Products will be loaded here -->
+        <div class="text-center" style="grid-column: 1 / -1;">
+          <div class="spinner"></div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-4">
+        <a href="/productos.html" class="btn btn-outline">Ver Todos los Productos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features mt-5" style="padding: 60px 0;">
+    <div class="container">
+      <div class="grid grid-3">
+        <div class="card glass text-center">
+          <div style="font-size: 48px; margin-bottom: 20px;">🚀</div>
+          <h3 class="mb-2">Envío Rápido</h3>
+          <p style="color: var(--text-secondary);">
+            Recibe tus productos en tiempo récord
+          </p>
+        </div>
+        
+        <div class="card glass text-center">
+          <div style="font-size: 48px; margin-bottom: 20px;">🔒</div>
+          <h3 class="mb-2">Pago Seguro</h3>
+          <p style="color: var(--text-secondary);">
+            Tus datos están protegidos al 100%
+          </p>
+        </div>
+        
+        <div class="card glass text-center">
+          <div style="font-size: 48px; margin-bottom: 20px;">💬</div>
+          <h3 class="mb-2">Soporte 24/7</h3>
+          <p style="color: var(--text-secondary);">
+            Estamos aquí para ayudarte siempre
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter mt-5" style="padding: 60px 0;">
+    <div class="container">
+      <div class="card glass text-center" style="padding: 60px 40px;">
+        <h2 class="neon-secondary mb-3" style="font-size: 32px;">
+          Suscríbete a Nuestras Novedades
+        </h2>
+        <p class="mb-4" style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 30px;">
+          Recibe ofertas exclusivas y las últimas novedades directamente en tu WhatsApp
+        </p>
+        <form id="newsletter-form" style="max-width: 500px; margin: 0 auto; display: flex; gap: 15px;">
+          <input 
+            type="tel" 
+            placeholder="Tu número de WhatsApp" 
+            required
+            style="flex: 1;"
+            id="newsletter-phone"
+          >
+          <button type="submit" class="btn btn-primary">Suscribirse</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-5">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>ShopFlourite</h3>
+          <p style="color: var(--text-secondary);">
+            Tu tienda online de confianza con productos exclusivos y la mejor experiencia de compra.
+          </p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Enlaces Rápidos</h3>
+          <ul>
+            <li><a href="/productos.html">Productos</a></li>
+            <li><a href="/novedades.html">Novedades</a></li>
+            <li><a href="/soporte.html">Soporte</a></li>
+            <li><a href="/terminos.html">Términos y Condiciones</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Mi Cuenta</h3>
+          <ul>
+            <li><a href="/perfil.html">Mi Perfil</a></li>
+            <li><a href="/mis-compras.html">Mis Compras</a></li>
+            <li><a href="/checkout.html">Carrito</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Contacto</h3>
+          <ul>
+            <li>📧 info@shopflourite.com</li>
+            <li>📱 WhatsApp: +34 XXX XXX XXX</li>
+            <li>📍 Madrid, España</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2024 ShopFlourite. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/main.js"></script>
+  <script>
+    // Load featured products
+    async function loadFeaturedProducts() {
+      try {
+        const response = await ShopFlourite.apiRequest('/products?featured=true&limit=4');
+        const products = response.products || [];
+        
+        const container = document.getElementById('featured-products');
+        
+        if (products.length === 0) {
+          container.innerHTML = `
+            <div class="text-center" style="grid-column: 1 / -1;">
+              <p style="color: var(--text-secondary);">No hay productos destacados disponibles</p>
+            </div>
+          `;
+          return;
+        }
+        
+        container.innerHTML = products.map(product => `
+          <div class="card product-card">
+            <img src="${product.images?.[0] || 'https://via.placeholder.com/300x250'}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 14px;">
+              ${product.description?.substring(0, 80)}...
+            </p>
+            <div class="price">${ShopFlourite.formatPrice(product.price)}</div>
+            <button 
+              class="btn btn-primary" 
+              style="width: 100%;"
+              onclick="addProductToCart('${product._id}', '${product.name}', ${product.price}, '${product.images?.[0] || ''}')"
+            >
+              Agregar al Carrito
+            </button>
+          </div>
+        `).join('');
+      } catch (error) {
+        console.error('Error loading products:', error);
+        document.getElementById('featured-products').innerHTML = `
+          <div class="text-center" style="grid-column: 1 / -1;">
+            <p style="color: var(--error);">Error al cargar productos</p>
+          </div>
+        `;
+      }
+    }
+    
+    function addProductToCart(id, name, price, image) {
+      ShopFlourite.addToCart({ id, name, price, image });
+    }
+    
+    // Newsletter form
+    document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const phone = document.getElementById('newsletter-phone').value;
+      
+      if (!ShopFlourite.isValidPhone(phone)) {
+        ShopFlourite.showAlert('Por favor ingresa un número de teléfono válido', 'error');
+        return;
+      }
+      
+      // Save to backend or local storage
+      ShopFlourite.saveToStorage('newsletter_subscribed', true);
+      ShopFlourite.saveWhatsAppPhone(phone);
+      ShopFlourite.showAlert('¡Gracias por suscribirte! Te contactaremos pronto por WhatsApp', 'success');
+      e.target.reset();
+    });
+    
+    // Load products on page load
+    document.addEventListener('DOMContentLoaded', loadFeaturedProducts);
+  </script>
+</body>
+</html>

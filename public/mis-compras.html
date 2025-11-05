@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Consulta el historial de tus pedidos en ShopFlourite. Rastrea tus compras y descarga facturas.">
+  <title>Mis Compras | ShopFlourite</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="/index.html" class="logo neon-text">ShopFlourite</a>
+        <nav>
+          <ul>
+            <li><a href="/index.html">Inicio</a></li>
+            <li><a href="/productos.html">Productos</a></li>
+            <li><a href="/novedades.html">Novedades</a></li>
+            <li><a href="/soporte.html">Soporte</a></li>
+            <li><a href="/checkout.html" style="position: relative;">🛒 Carrito<span class="cart-badge badge" style="position: absolute; top: -8px; right: -8px; display: none;">0</span></a></li>
+            <li id="user-links" style="display: flex; gap: 15px;">
+              <span class="user-name" style="color: var(--primary);"></span>
+              <a href="/perfil.html">Perfil</a>
+              <a href="/mis-compras.html" style="color: var(--primary);">Mis Compras</a>
+              <a href="#" onclick="logout(); return false;">Salir</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="mt-5" style="padding: 120px 0 60px;">
+    <div class="container">
+      <h1 class="neon-text text-center mb-4" style="font-size: 48px;">Mis Compras</h1>
+      
+      <div id="orders-container">
+        <div class="text-center"><div class="spinner"></div></div>
+      </div>
+
+      <div id="no-orders" class="card glass text-center" style="padding: 60px; display: none;">
+        <div style="font-size: 64px; margin-bottom: 20px;">📦</div>
+        <h3 style="color: var(--text-secondary); margin-bottom: 15px;">No tienes pedidos aún</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 30px;">Comienza a comprar para ver tu historial aquí</p>
+        <a href="/productos.html" class="btn btn-primary">Ver Productos</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mt-5">
+    <div class="container">
+      <div class="footer-bottom text-center" style="padding: 20px 0;">
+        <p>&copy; 2024 ShopFlourite. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script>
+    if (!localStorage.getItem('token')) window.location.href = '/login.html?redirect=/mis-compras.html';
+
+    async function loadOrders() {
+      try {
+        const response = await ShopFlourite.apiRequest('/orders/my-orders');
+        const orders = response.orders || response || [];
+        
+        const container = document.getElementById('orders-container');
+        const noOrders = document.getElementById('no-orders');
+        
+        if (orders.length === 0) {
+          container.innerHTML = '';
+          noOrders.style.display = 'block';
+          return;
+        }
+        
+        noOrders.style.display = 'none';
+        container.innerHTML = orders.map(order => `
+          <div class="card glass mb-3" style="padding: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+              <div>
+                <h3 style="margin-bottom: 10px;">Pedido #${order._id?.slice(-8) || 'N/A'}</h3>
+                <p style="color: var(--text-secondary);">Fecha: ${ShopFlourite.formatDate(order.createdAt)}</p>
+              </div>
+              <div style="text-align: right;">
+                <div class="badge ${order.orderStatus === 'delivered' ? 'badge-secondary' : ''}">${getStatusText(order.orderStatus)}</div>
+                <p style="color: var(--primary); font-size: 24px; font-weight: 700; margin-top: 10px;">${ShopFlourite.formatPrice(order.totalAmount)}</p>
+              </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+              ${(order.items || []).map(item => `
+                <div style="display: flex; gap: 15px; padding: 10px 0; border-top: 1px solid var(--glass-border);">
+                  <div style="flex: 1;">
+                    <p style="font-weight: 600;">${item.productId?.name || item.name || 'Producto'}</p>
+                    <p style="color: var(--text-secondary); font-size: 14px;">Cantidad: ${item.quantity}</p>
+                  </div>
+                  <p style="color: var(--primary);">${ShopFlourite.formatPrice(item.price)}</p>
+                </div>
+              `).join('')}
+            </div>
+            
+            <div style="display: flex; gap: 15px;">
+              <button class="btn btn-outline" onclick="viewOrderDetails('${order._id}')">Ver Detalles</button>
+              ${order.orderStatus === 'pending' ? `<button class="btn btn-secondary" onclick="uploadPaymentProof('${order._id}')">Subir Comprobante</button>` : ''}
+            </div>
+          </div>
+        `).join('');
+        
+      } catch (error) {
+        console.error('Error loading orders:', error);
+        document.getElementById('orders-container').innerHTML = '<div class="alert alert-error">Error al cargar pedidos</div>';
+      }
+    }
+
+    function getStatusText(status) {
+      const texts = {
+        'pending': 'Pendiente',
+        'processing': 'Procesando',
+        'shipped': 'Enviado',
+        'delivered': 'Entregado',
+        'cancelled': 'Cancelado'
+      };
+      return texts[status] || status;
+    }
+
+    function viewOrderDetails(orderId) {
+      window.location.href = `/order-details.html?id=${orderId}`;
+    }
+
+    function uploadPaymentProof(orderId) {
+      ShopFlourite.showAlert('Funcionalidad de carga de comprobante próximamente', 'warning');
+    }
+
+    document.addEventListener('DOMContentLoaded', loadOrders);
+  </script>
+</body>
+</html>

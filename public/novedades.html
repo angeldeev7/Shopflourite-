@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Descubre las últimas novedades y ofertas de ShopFlourite. Productos nuevos y promociones exclusivas.">
+  <title>Novedades | ShopFlourite</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="/index.html" class="logo neon-text">ShopFlourite</a>
+        <nav>
+          <ul>
+            <li><a href="/index.html">Inicio</a></li>
+            <li><a href="/productos.html">Productos</a></li>
+            <li><a href="/novedades.html" style="color: var(--primary);">Novedades</a></li>
+            <li><a href="/soporte.html">Soporte</a></li>
+            <li><a href="/checkout.html" style="position: relative;">🛒 Carrito<span class="cart-badge badge" style="position: absolute; top: -8px; right: -8px; display: none;">0</span></a></li>
+            <li id="auth-links" style="display: flex; gap: 15px;"><a href="/login.html" class="btn btn-outline" style="padding: 8px 20px;">Iniciar Sesión</a></li>
+            <li id="user-links" style="display: none; gap: 15px;">
+              <span class="user-name" style="color: var(--primary);"></span>
+              <a href="/perfil.html">Perfil</a>
+              <a href="/mis-compras.html">Mis Compras</a>
+              <a href="#" onclick="logout(); return false;">Salir</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="mt-5" style="padding: 120px 0 60px;">
+    <div class="container">
+      <h1 class="neon-text text-center mb-4" style="font-size: 48px;">Novedades</h1>
+      <p class="text-center mb-5" style="color: var(--text-secondary); font-size: 18px;">Lo último en ShopFlourite</p>
+      
+      <div class="grid grid-2 mb-5">
+        <div class="card glass" style="padding: 40px; background: linear-gradient(135deg, rgba(0,217,255,0.1), rgba(255,0,234,0.1));">
+          <div class="badge badge-secondary mb-3">NUEVO</div>
+          <h2 class="neon-secondary mb-3" style="font-size: 32px;">¡Bienvenido a ShopFlourite!</h2>
+          <p style="color: var(--text-secondary); font-size: 18px; line-height: 1.8;">
+            Hemos lanzado nuestra nueva plataforma de compras con un diseño moderno y experiencia mejorada. 
+            Disfruta de envíos más rápidos, mejor atención al cliente y los mejores productos del mercado.
+          </p>
+          <a href="/productos.html" class="btn btn-primary mt-3">Explorar Productos</a>
+        </div>
+        
+        <div class="card glass" style="padding: 40px;">
+          <div class="badge mb-3">OFERTA</div>
+          <h2 class="mb-3" style="color: var(--primary); font-size: 32px;">Envío Gratis</h2>
+          <p style="color: var(--text-secondary); font-size: 18px; line-height: 1.8;">
+            Por tiempo limitado, disfruta de envío gratis en todos tus pedidos. 
+            Sin mínimo de compra. Válido para toda España.
+          </p>
+          <div class="mt-3" style="font-size: 14px; color: var(--text-secondary);">
+            🎉 Promoción válida hasta fin de mes
+          </div>
+        </div>
+      </div>
+
+      <h2 class="text-center mb-4" style="color: var(--primary); font-size: 36px;">Productos Recientes</h2>
+      <div id="new-products" class="grid grid-3">
+        <div class="text-center" style="grid-column: 1 / -1;"><div class="spinner"></div></div>
+      </div>
+
+      <div class="mt-5">
+        <h2 class="text-center mb-4" style="color: var(--primary); font-size: 36px;">Actualizaciones</h2>
+        
+        <div class="card glass mb-3" style="padding: 30px;">
+          <div style="display: flex; gap: 20px; align-items: start;">
+            <div style="font-size: 48px;">🚀</div>
+            <div style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <h4 style="color: var(--primary);">Mejoras en el Sistema de Pedidos</h4>
+                <span style="color: var(--text-secondary); font-size: 14px;">05 Nov 2024</span>
+              </div>
+              <p style="color: var(--text-secondary);">
+                Hemos mejorado nuestro sistema de seguimiento de pedidos. Ahora puedes ver el estado 
+                de tu pedido en tiempo real y recibir notificaciones por WhatsApp.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card glass mb-3" style="padding: 30px;">
+          <div style="display: flex; gap: 20px; align-items: start;">
+            <div style="font-size: 48px;">💳</div>
+            <div style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <h4 style="color: var(--primary);">Nuevos Métodos de Pago</h4>
+                <span style="color: var(--text-secondary); font-size: 14px;">01 Nov 2024</span>
+              </div>
+              <p style="color: var(--text-secondary);">
+                Ahora aceptamos PayPal, tarjetas de crédito/débito, transferencias bancarias 
+                y efectivo contra entrega. ¡Paga como prefieras!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card glass mb-3" style="padding: 30px;">
+          <div style="display: flex; gap: 20px; align-items: start;">
+            <div style="font-size: 48px;">📱</div>
+            <div style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <h4 style="color: var(--primary);">Login con WhatsApp</h4>
+                <span style="color: var(--text-secondary); font-size: 14px;">28 Oct 2024</span>
+              </div>
+              <p style="color: var(--text-secondary);">
+                Ahora puedes iniciar sesión fácilmente con tu número de WhatsApp. 
+                Sin necesidad de recordar contraseñas complicadas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card glass text-center mt-5" style="padding: 60px;">
+        <h2 class="neon-secondary mb-3" style="font-size: 32px;">Suscríbete a Nuestro Newsletter</h2>
+        <p class="mb-4" style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 30px;">
+          Recibe las últimas novedades, ofertas exclusivas y lanzamientos de productos directamente en tu WhatsApp
+        </p>
+        <form id="newsletter-form" style="max-width: 500px; margin: 0 auto; display: flex; gap: 15px;">
+          <input type="tel" placeholder="Tu número de WhatsApp" required style="flex: 1;" id="newsletter-phone">
+          <button type="submit" class="btn btn-primary">Suscribirse</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mt-5">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section"><h3>ShopFlourite</h3><p style="color: var(--text-secondary);">Tu tienda online de confianza.</p></div>
+        <div class="footer-section"><h3>Enlaces</h3><ul><li><a href="/productos.html">Productos</a></li><li><a href="/terminos.html">Términos</a></li></ul></div>
+        <div class="footer-section"><h3>Contacto</h3><ul><li>📧 info@shopflourite.com</li><li>📱 WhatsApp: +34 XXX XXX XXX</li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2024 ShopFlourite. Todos los derechos reservados.</p></div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script>
+    async function loadNewProducts() {
+      try {
+        const response = await ShopFlourite.apiRequest('/products?sort=-createdAt&limit=6');
+        const products = response.products || [];
+        
+        const container = document.getElementById('new-products');
+        if (products.length === 0) {
+          container.innerHTML = '<p class="text-center" style="grid-column: 1 / -1; color: var(--text-secondary);">No hay productos nuevos disponibles</p>';
+          return;
+        }
+        
+        container.innerHTML = products.map(product => `
+          <div class="card product-card fade-in">
+            <img src="${product.images?.[0] || 'https://via.placeholder.com/300x250'}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <p style="color: var(--text-secondary); font-size: 14px; min-height: 60px;">${product.description?.substring(0, 80)}...</p>
+            <div class="price">${ShopFlourite.formatPrice(product.price)}</div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="ShopFlourite.addToCart({id:'${product._id}',name:'${product.name}',price:${product.price},image:'${product.images?.[0]||''}'})">Agregar al Carrito</button>
+          </div>
+        `).join('');
+      } catch (error) {
+        console.error('Error loading products:', error);
+      }
+    }
+
+    document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const phone = document.getElementById('newsletter-phone').value;
+      if (ShopFlourite.isValidPhone(phone)) {
+        ShopFlourite.saveWhatsAppPhone(phone);
+        ShopFlourite.showAlert('¡Gracias por suscribirte!', 'success');
+        e.target.reset();
+      } else {
+        ShopFlourite.showAlert('Por favor ingresa un número válido', 'error');
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', loadNewProducts);
+  </script>
+</body>
+</html>

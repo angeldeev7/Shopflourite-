@@ -154,4 +154,58 @@ router.put('/change-password', authMiddleware, [
   }
 });
 
+// WhatsApp Login
+router.post('/whatsapp-login', [
+  body('phone').trim().notEmpty().withMessage('Phone number is required'),
+  body('name').trim().notEmpty().withMessage('Name is required')
+], async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { phone, name } = req.body;
+
+    // Try to find user by phone
+    let user = await User.findOne({ phone });
+
+    if (user) {
+      // User exists, log them in
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+      
+      return res.json({
+        message: 'Login successful',
+        user,
+        token
+      });
+    }
+
+    // User doesn't exist, create a new one
+    const tempEmail = `${phone.replace(/\D/g, '')}@whatsapp.temp`;
+    const tempPassword = Math.random().toString(36).slice(-10);
+    const hashedPassword = await bcrypt.hash(tempPassword, 10);
+
+    user = new User({
+      name,
+      email: tempEmail,
+      password: hashedPassword,
+      phone
+    });
+
+    await user.save();
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+
+    res.status(201).json({
+      message: 'User registered successfully',
+      user,
+      token
+    });
+  } catch (error) {
+    console.error('WhatsApp login error:', error);
+    res.status(500).json({ error: { message: 'Server error during WhatsApp login' } });
+  }
+});
+
 module.exports = router;

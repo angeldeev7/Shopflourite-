@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explora nuestro catálogo completo de productos exclusivos en ShopFlourite. Encuentra lo que buscas con filtros avanzados.">
+  <meta name="keywords" content="catálogo, productos, tienda, comprar online, shopflourite">
+  <title>Productos | ShopFlourite</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="/index.html" class="logo neon-text">ShopFlourite</a>
+        
+        <nav>
+          <ul>
+            <li><a href="/index.html">Inicio</a></li>
+            <li><a href="/productos.html" style="color: var(--primary);">Productos</a></li>
+            <li><a href="/novedades.html">Novedades</a></li>
+            <li><a href="/soporte.html">Soporte</a></li>
+            <li>
+              <a href="/checkout.html" style="position: relative;">
+                🛒 Carrito
+                <span class="cart-badge badge" style="position: absolute; top: -8px; right: -8px; display: none;">0</span>
+              </a>
+            </li>
+            <li id="auth-links" style="display: flex; gap: 15px;">
+              <a href="/login.html" class="btn btn-outline" style="padding: 8px 20px;">Iniciar Sesión</a>
+            </li>
+            <li id="user-links" style="display: none; gap: 15px;">
+              <span class="user-name" style="color: var(--primary);"></span>
+              <a href="/perfil.html">Perfil</a>
+              <a href="/mis-compras.html">Mis Compras</a>
+              <a href="#" onclick="logout(); return false;">Salir</a>
+            </li>
+          </ul>
+        </nav>
+        
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="mt-5" style="padding: 120px 0 40px;">
+    <div class="container">
+      <h1 class="neon-text text-center" style="font-size: 48px; margin-bottom: 20px;">
+        Nuestros Productos
+      </h1>
+      <p class="text-center" style="color: var(--text-secondary); font-size: 18px;">
+        Explora nuestra colección exclusiva
+      </p>
+    </div>
+  </section>
+
+  <!-- Filters and Search -->
+  <section class="mt-4">
+    <div class="container">
+      <div class="card glass" style="padding: 30px; margin-bottom: 30px;">
+        <div class="grid grid-4">
+          <div class="form-group">
+            <label>Buscar</label>
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="Buscar productos..."
+              onkeyup="filterProducts()"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label>Categoría</label>
+            <select id="category-filter" onchange="filterProducts()">
+              <option value="">Todas las categorías</option>
+              <option value="electronics">Electrónica</option>
+              <option value="clothing">Ropa</option>
+              <option value="home">Hogar</option>
+              <option value="beauty">Belleza</option>
+              <option value="sports">Deportes</option>
+              <option value="books">Libros</option>
+              <option value="toys">Juguetes</option>
+              <option value="other">Otros</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>Precio Máximo</label>
+            <input 
+              type="number" 
+              id="price-filter" 
+              placeholder="Ej: 100"
+              min="0"
+              onchange="filterProducts()"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label>Ordenar por</label>
+            <select id="sort-filter" onchange="filterProducts()">
+              <option value="-createdAt">Más recientes</option>
+              <option value="price">Precio: Menor a Mayor</option>
+              <option value="-price">Precio: Mayor a Menor</option>
+              <option value="-rating">Mejor valorados</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Grid -->
+  <section class="products-section">
+    <div class="container">
+      <div id="products-container" class="grid grid-3">
+        <!-- Products will be loaded here -->
+        <div class="text-center" style="grid-column: 1 / -1;">
+          <div class="spinner"></div>
+        </div>
+      </div>
+      
+      <!-- Pagination -->
+      <div id="pagination" class="text-center mt-4" style="display: none;">
+        <button class="btn btn-outline" onclick="loadPreviousPage()" id="prev-btn" style="margin-right: 15px;">
+          ← Anterior
+        </button>
+        <span id="page-info" style="color: var(--text-secondary); margin: 0 15px;">
+          Página 1 de 1
+        </span>
+        <button class="btn btn-outline" onclick="loadNextPage()" id="next-btn">
+          Siguiente →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-5">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>ShopFlourite</h3>
+          <p style="color: var(--text-secondary);">
+            Tu tienda online de confianza con productos exclusivos y la mejor experiencia de compra.
+          </p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Enlaces Rápidos</h3>
+          <ul>
+            <li><a href="/productos.html">Productos</a></li>
+            <li><a href="/novedades.html">Novedades</a></li>
+            <li><a href="/soporte.html">Soporte</a></li>
+            <li><a href="/terminos.html">Términos y Condiciones</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Mi Cuenta</h3>
+          <ul>
+            <li><a href="/perfil.html">Mi Perfil</a></li>
+            <li><a href="/mis-compras.html">Mis Compras</a></li>
+            <li><a href="/checkout.html">Carrito</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Contacto</h3>
+          <ul>
+            <li>📧 info@shopflourite.com</li>
+            <li>📱 WhatsApp: +34 XXX XXX XXX</li>
+            <li>📍 Madrid, España</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2024 ShopFlourite. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/main.js"></script>
+  <script>
+    let currentPage = 1;
+    let totalPages = 1;
+    let currentFilters = {};
+
+    async function loadProducts(page = 1) {
+      try {
+        ShopFlourite.showLoading(document.getElementById('products-container'));
+        
+        // Build query parameters
+        const params = new URLSearchParams({
+          page: page,
+          limit: 12,
+          ...currentFilters
+        });
+        
+        const response = await ShopFlourite.apiRequest(`/products?${params}`);
+        const products = response.products || [];
+        
+        currentPage = response.currentPage || 1;
+        totalPages = response.totalPages || 1;
+        
+        const container = document.getElementById('products-container');
+        ShopFlourite.hideLoading();
+        
+        if (products.length === 0) {
+          container.innerHTML = `
+            <div class="text-center" style="grid-column: 1 / -1;">
+              <div class="card glass" style="padding: 60px;">
+                <div style="font-size: 64px; margin-bottom: 20px;">📦</div>
+                <h3 style="color: var(--text-secondary);">No se encontraron productos</h3>
+                <p style="color: var(--text-secondary); margin-top: 10px;">
+                  Intenta ajustar tus filtros de búsqueda
+                </p>
+              </div>
+            </div>
+          `;
+          document.getElementById('pagination').style.display = 'none';
+          return;
+        }
+        
+        container.innerHTML = products.map(product => `
+          <div class="card product-card fade-in">
+            <img 
+              src="${product.images?.[0] || 'https://via.placeholder.com/300x250'}" 
+              alt="${product.name}"
+              onclick="window.location.href='/producto.html?id=${product._id}'"
+              style="cursor: pointer;"
+            >
+            <h3>${product.name}</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 14px; min-height: 60px;">
+              ${product.description?.substring(0, 100)}${product.description?.length > 100 ? '...' : ''}
+            </p>
+            ${product.rating ? `
+              <div style="color: var(--warning); margin-bottom: 10px;">
+                ${'⭐'.repeat(Math.round(product.rating))} 
+                <span style="color: var(--text-secondary); font-size: 14px;">
+                  (${product.reviewCount || 0})
+                </span>
+              </div>
+            ` : ''}
+            <div class="price">${ShopFlourite.formatPrice(product.price)}</div>
+            ${product.stock > 0 ? `
+              <button 
+                class="btn btn-primary" 
+                style="width: 100%;"
+                onclick="addToCartFromList('${product._id}', '${product.name}', ${product.price}, '${product.images?.[0] || ''}')"
+              >
+                Agregar al Carrito
+              </button>
+            ` : `
+              <button class="btn" style="width: 100%; background: var(--text-secondary); cursor: not-allowed;" disabled>
+                Agotado
+              </button>
+            `}
+          </div>
+        `).join('');
+        
+        // Update pagination
+        updatePagination();
+      } catch (error) {
+        console.error('Error loading products:', error);
+        ShopFlourite.hideLoading();
+        document.getElementById('products-container').innerHTML = `
+          <div class="text-center" style="grid-column: 1 / -1;">
+            <div class="alert alert-error">Error al cargar productos. Por favor intenta de nuevo.</div>
+          </div>
+        `;
+      }
+    }
+
+    function updatePagination() {
+      const pagination = document.getElementById('pagination');
+      const pageInfo = document.getElementById('page-info');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      
+      if (totalPages > 1) {
+        pagination.style.display = 'block';
+        pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
+        
+        if (prevBtn.disabled) {
+          prevBtn.style.opacity = '0.5';
+          prevBtn.style.cursor = 'not-allowed';
+        } else {
+          prevBtn.style.opacity = '1';
+          prevBtn.style.cursor = 'pointer';
+        }
+        
+        if (nextBtn.disabled) {
+          nextBtn.style.opacity = '0.5';
+          nextBtn.style.cursor = 'not-allowed';
+        } else {
+          nextBtn.style.opacity = '1';
+          nextBtn.style.cursor = 'pointer';
+        }
+      } else {
+        pagination.style.display = 'none';
+      }
+    }
+
+    function loadNextPage() {
+      if (currentPage < totalPages) {
+        loadProducts(currentPage + 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function loadPreviousPage() {
+      if (currentPage > 1) {
+        loadProducts(currentPage - 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function filterProducts() {
+      currentFilters = {};
+      
+      const search = document.getElementById('search-input').value.trim();
+      const category = document.getElementById('category-filter').value;
+      const maxPrice = document.getElementById('price-filter').value;
+      const sort = document.getElementById('sort-filter').value;
+      
+      if (search) currentFilters.search = search;
+      if (category) currentFilters.category = category;
+      if (maxPrice) currentFilters.maxPrice = maxPrice;
+      if (sort) currentFilters.sort = sort;
+      
+      loadProducts(1);
+    }
+
+    function addToCartFromList(id, name, price, image) {
+      ShopFlourite.addToCart({ id, name, price, image });
+    }
+
+    // Load products on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProducts();
+    });
+  </script>
+</body>
+</html>
