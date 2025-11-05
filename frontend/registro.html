@@ -88,6 +88,8 @@
   <script src="/js/auth.js"></script>
   <script src="/js/cart.js"></script>
   <script>
+    const REDIRECT_DELAY_MS = 1500;
+    
     document.getElementById('register-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       
@@ -140,7 +142,7 @@
         
         showAlert('¡Cuenta creada exitosamente!', 'success');
         
-        setTimeout(() => window.location.href = '/index.html', 1500);
+        setTimeout(() => window.location.href = '/index.html', REDIRECT_DELAY_MS);
       } catch (error) {
         showAlert(error.message || 'Error al registrarse', 'error');
         const submitBtn = e.target.querySelector('button[type="submit"]');

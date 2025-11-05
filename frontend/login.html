@@ -67,7 +67,12 @@
         
         showAlert('¡Bienvenido!', 'success');
         
-        const redirect = getQueryParam('redirect') || '/index.html';
+        // Sanitize redirect URL to prevent open redirects
+        let redirect = getQueryParam('redirect') || '/index.html';
+        // Only allow relative URLs starting with /
+        if (!redirect.startsWith('/') || redirect.startsWith('//')) {
+          redirect = '/index.html';
+        }
         setTimeout(() => window.location.href = redirect, 1000);
       } catch (error) {
         showAlert(error.message || 'Error al iniciar sesión', 'error');

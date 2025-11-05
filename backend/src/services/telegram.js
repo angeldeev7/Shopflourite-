@@ -44,7 +44,10 @@ ${order.shippingAddress.city}, ${order.shippingAddress.state}
 ${order.shippingAddress.zipCode}
 
 🛒 Productos: ${order.items.length} item(s)
-${order.items.map(item => `  • ${item.product.name} x${item.quantity} - $${item.price}`).join('\n')}
+${order.items.map(item => {
+  const productName = item.product && item.product.name ? item.product.name : 'Producto desconocido';
+  return `  • ${productName} x${item.quantity} - $${item.price}`;
+}).join('\n')}
 
 ⏰ ${new Date(order.createdAt).toLocaleString('es-MX')}
     `.trim();
