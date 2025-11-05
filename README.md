@@ -1,220 +1,181 @@
-# ShopFlourite - Full-Stack E-commerce Platform
+# ShopFlourite - E-commerce Platform
 
-ShopFlourite is a complete e-commerce solution with a professional React frontend, Node.js/Express backend, and integrated Telegram bot for admin management.
+ShopFlourite es una plataforma de comercio electrónico moderna con diseño glass/neon profesional, frontend modular en HTML/CSS/JS y backend Express con MongoDB.
 
-## 🚀 Features
+## 🌟 Características
 
-### Frontend (React)
-- Professional, responsive UI design
-- Product catalog with advanced filtering
-- Product details with dynamic reviews
-- Shopping cart management
-- Secure checkout process
-- User authentication (login/register)
-- User profile management
-- Order tracking and history
-- Support ticket system
-- Payment proof upload
+### Frontend (HTML/CSS/JS)
+- ✨ Diseño glass/neon moderno y profesional
+- 📱 Totalmente responsive y optimizado para móviles
+- 🎨 Interfaz de usuario atractiva con efectos visuales
+- 🍔 Menú hamburguesa animado para navegación móvil
+- 🛒 Carrito de compras con gestión local
+- 📦 Catálogo de productos con filtros avanzados
+- 💳 Proceso de checkout profesional
+- 👤 Perfiles de usuario editables
+- 📱 Login sencillo por WhatsApp
+- ⭐ Sistema de reseñas de productos
+- 🎫 Sistema de soporte al cliente
+- 📰 Sección de novedades
+- 📋 Términos y condiciones
 
 ### Backend (Node.js/Express)
-- RESTful API architecture
-- MongoDB database integration
-- JWT-based authentication
-- Product management (CRUD operations)
-- Order processing system
-- Payment integration ready
-- Review and rating system
-- Support ticket management
-- File upload handling (images, payment proofs)
-- Admin and user role management
+- 🔐 Autenticación JWT
+- 📱 Login con WhatsApp
+- 🗄️ Base de datos MongoDB
+- 📦 Gestión completa de productos
+- 🛒 Sistema de pedidos
+- ⭐ Sistema de reseñas
+- 🎫 Sistema de tickets de soporte
+- 📧 Notificaciones por email
+- 🔒 Seguridad con Helmet y CORS
 
-### Telegram Bot
-- Admin panel via Telegram
-- Real-time notifications
-- View orders, users, products
-- Check support tickets
-- Monitor store statistics
+## 📋 Requisitos Previos
 
-## 📋 Prerequisites
+- Node.js v14 o superior
+- MongoDB (local o MongoDB Atlas)
+- npm o yarn
 
-Before installation, ensure you have:
+## 🚀 Instalación
 
-- **Node.js** (v14 or higher)
-- **npm** or **yarn**
-- **MongoDB** (local or MongoDB Atlas)
-- **Git**
-- **Telegram Bot Token** (for admin bot)
-
-## 🛠️ Installation
-
-### 1. Clone the Repository
+### 1. Clonar el Repositorio
 
 ```bash
 git clone https://github.com/angeldeev7/Shopflourite-.git
 cd Shopflourite-
 ```
 
-### 2. Backend Setup
+### 2. Configurar el Backend
 
 ```bash
 cd backend
 npm install
 ```
 
-Create a `.env` file in the `backend` directory:
-
-```bash
-cp .env.example .env
-```
-
-Edit `.env` with your configuration:
+Crear archivo `.env`:
 
 ```env
 PORT=5000
 NODE_ENV=development
 MONGODB_URI=mongodb://localhost:27017/shopflourite
-JWT_SECRET=your_super_secret_jwt_key_change_this
-FRONTEND_URL=http://localhost:3000
-TELEGRAM_BOT_TOKEN=your_telegram_bot_token
-TELEGRAM_ADMIN_CHAT_ID=your_admin_chat_id
+JWT_SECRET=tu_clave_secreta_muy_segura_aqui
+FRONTEND_URL=http://localhost:5000
 ```
 
-### 3. Frontend Setup
+### 3. Iniciar el Servidor
 
 ```bash
-cd ../frontend
-npm install
-```
-
-Create a `.env` file in the `frontend` directory:
-
-```bash
-cp .env.example .env
-```
-
-Edit `.env`:
-
-```env
-REACT_APP_API_URL=http://localhost:5000/api
-REACT_APP_SITE_NAME=ShopFlourite
-```
-
-### 4. Telegram Bot Setup
-
-```bash
-cd ../telegram-bot
-npm install
-```
-
-Create a `.env` file in the `telegram-bot` directory:
-
-```bash
-cp .env.example .env
-```
-
-Edit `.env`:
-
-```env
-TELEGRAM_BOT_TOKEN=your_telegram_bot_token
-ADMIN_CHAT_ID=your_admin_chat_id
-API_URL=http://localhost:5000/api
-API_ADMIN_TOKEN=your_admin_jwt_token
-```
-
-**Getting Telegram Bot Token:**
-1. Message [@BotFather](https://t.me/botfather) on Telegram
-2. Send `/newbot` and follow instructions
-3. Copy the token provided
-
-**Getting Admin Chat ID:**
-1. Message [@userinfobot](https://t.me/userinfobot) on Telegram
-2. Copy your chat ID
-
-## 🚀 Running the Application
-
-### Development Mode
-
-Open **three terminal windows**:
-
-**Terminal 1 - Backend:**
-```bash
-cd backend
+# Modo desarrollo
 npm run dev
-```
 
-**Terminal 2 - Frontend:**
-```bash
-cd frontend
+# Modo producción
 npm start
 ```
 
-**Terminal 3 - Telegram Bot:**
-```bash
-cd telegram-bot
-npm start
+El servidor estará disponible en `http://localhost:5000`
+
+## 🌐 Estructura de Páginas
+
+- **/** - Página de inicio con productos destacados
+- **/productos.html** - Catálogo completo con filtros
+- **/checkout.html** - Carrito y proceso de pago
+- **/login.html** - Inicio de sesión (WhatsApp o email)
+- **/perfil.html** - Perfil de usuario editable
+- **/mis-compras.html** - Historial de pedidos
+- **/soporte.html** - Centro de soporte y ayuda
+- **/novedades.html** - Últimas novedades y ofertas
+- **/terminos.html** - Términos y condiciones
+
+## 🔌 API Endpoints
+
+### Autenticación
+- `POST /api/auth/register` - Registro de usuario
+- `POST /api/auth/login` - Inicio de sesión con email
+- `POST /api/auth/whatsapp-login` - Inicio de sesión con WhatsApp
+- `GET /api/auth/me` - Obtener usuario actual
+- `PUT /api/auth/profile` - Actualizar perfil
+- `PUT /api/auth/change-password` - Cambiar contraseña
+
+### Productos
+- `GET /api/products` - Listar productos (con filtros)
+- `GET /api/products/:id` - Obtener producto específico
+- `POST /api/products` - Crear producto (admin)
+- `PUT /api/products/:id` - Actualizar producto (admin)
+- `DELETE /api/products/:id` - Eliminar producto (admin)
+
+### Pedidos
+- `POST /api/orders` - Crear pedido
+- `GET /api/orders/my-orders` - Obtener mis pedidos
+- `GET /api/orders/:id` - Obtener pedido específico
+- `PUT /api/orders/:id/status` - Actualizar estado (admin)
+
+### Reseñas
+- `GET /api/reviews/product/:productId` - Obtener reseñas de producto
+- `POST /api/reviews` - Crear reseña
+- `PUT /api/reviews/:id` - Actualizar reseña
+- `DELETE /api/reviews/:id` - Eliminar reseña
+
+### Soporte
+- `POST /api/support` - Crear ticket de soporte
+- `GET /api/support/my-tickets` - Obtener mis tickets
+- `GET /api/support/:id` - Obtener ticket específico
+- `POST /api/support/:id/message` - Agregar mensaje a ticket
+
+## 🎨 Personalización
+
+### Cambiar Colores del Tema
+
+Edita `/public/css/styles.css`:
+
+```css
+:root {
+  --primary: #00d9ff;      /* Color principal (cyan neon) */
+  --secondary: #ff00ea;    /* Color secundario (magenta neon) */
+  --accent: #7000ff;       /* Color de acento (púrpura) */
+  --bg-dark: #0a0a0f;      /* Fondo oscuro */
+  --success: #00ff88;      /* Color de éxito (verde neon) */
+  --warning: #ffaa00;      /* Color de advertencia (naranja) */
+  --error: #ff3366;        /* Color de error (rojo) */
+}
 ```
 
-The application will be available at:
-- **Frontend:** http://localhost:3000
-- **Backend API:** http://localhost:5000
-- **API Documentation:** http://localhost:5000/api/health
+### Cambiar Nombre de la Marca
 
-### Production Mode
+1. Edita el logo en cada archivo HTML: busca `ShopFlourite` y reemplázalo
+2. Actualiza el título en cada `<title>` tag
+3. Modifica los meta tags según sea necesario
 
-**Backend:**
-```bash
-cd backend
-npm start
-```
+## 🚢 Despliegue en VPS
 
-**Frontend:**
-```bash
-cd frontend
-npm run build
-# Serve the build folder with a web server (nginx, apache, etc.)
-```
-
-**Telegram Bot:**
-```bash
-cd telegram-bot
-npm start
-```
-
-## 🖥️ VPS Deployment
-
-### Using PM2 (Recommended)
+### Usando PM2
 
 ```bash
-# Install PM2 globally
+# Instalar PM2
 npm install -g pm2
 
-# Start backend
+# Iniciar backend
 cd backend
 pm2 start src/server.js --name "shopflourite-backend"
 
-# Start telegram bot
-cd ../telegram-bot
-pm2 start bot.js --name "shopflourite-bot"
-
-# Save PM2 configuration
+# Guardar configuración
 pm2 save
 pm2 startup
 ```
 
-### Nginx Configuration
+### Configurar Nginx
 
 ```nginx
 server {
     listen 80;
-    server_name your-domain.com;
+    server_name tu-dominio.com;
 
-    # Frontend
+    # Servir archivos estáticos
     location / {
-        root /path/to/frontend/build;
-        try_files $uri /index.html;
+        root /ruta/a/Shopflourite-/public;
+        try_files $uri $uri/ /index.html;
     }
 
-    # Backend API
+    # Proxy API
     location /api {
         proxy_pass http://localhost:5000;
         proxy_http_version 1.1;
@@ -224,150 +185,79 @@ server {
         proxy_cache_bypass $http_upgrade;
     }
 
-    # Static files
+    # Archivos subidos
     location /uploads {
-        alias /path/to/backend/uploads;
+        alias /ruta/a/Shopflourite-/backend/uploads;
     }
 }
 ```
 
-## 📁 Project Structure
+## 🔒 Seguridad
 
-```
-Shopflourite-/
-├── backend/
-│   ├── src/
-│   │   ├── models/          # Database models
-│   │   ├── routes/          # API routes
-│   │   ├── middleware/      # Auth, upload, etc.
-│   │   └── server.js        # Main server file
-│   ├── uploads/             # Uploaded files
-│   ├── package.json
-│   └── .env.example
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/      # Reusable components
-│   │   ├── pages/           # Page components
-│   │   ├── services/        # API service
-│   │   ├── utils/           # Context, helpers
-│   │   └── styles/          # CSS files
-│   ├── package.json
-│   └── .env.example
-├── telegram-bot/
-│   ├── bot.js               # Telegram bot
-│   ├── package.json
-│   └── .env.example
-└── README.md
-```
+- JWT para autenticación
+- Contraseñas hasheadas con bcrypt
+- Helmet para headers de seguridad
+- CORS configurado
+- Validación de entrada con express-validator
+- Protección contra inyección SQL/NoSQL
 
-## 🔌 API Endpoints
+## 📱 Características de WhatsApp Login
 
-### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - User login
-- `GET /api/auth/me` - Get current user
-- `PUT /api/auth/profile` - Update profile
+El sistema permite a los usuarios iniciar sesión simplemente con su número de WhatsApp:
 
-### Products
-- `GET /api/products` - Get all products
-- `GET /api/products/:id` - Get single product
-- `POST /api/products` - Create product (admin)
-- `PUT /api/products/:id` - Update product (admin)
-- `DELETE /api/products/:id` - Delete product (admin)
+1. Usuario ingresa su número de WhatsApp y nombre
+2. Si es nuevo, se crea una cuenta automáticamente
+3. Si ya existe, se inicia sesión directamente
+4. No requiere contraseña para WhatsApp login
+5. Opción de login tradicional con email/contraseña también disponible
 
-### Orders
-- `POST /api/orders` - Create order
-- `GET /api/orders/my-orders` - Get user orders
-- `GET /api/orders/:id` - Get single order
-- `PUT /api/orders/:id/status` - Update order status (admin)
-- `POST /api/orders/:id/payment-proof` - Upload payment proof
+## 🎯 Estado de Categorías de Productos
 
-### Reviews
-- `GET /api/reviews/product/:productId` - Get product reviews
-- `POST /api/reviews` - Create review
-- `PUT /api/reviews/:id` - Update review
-- `DELETE /api/reviews/:id` - Delete review
+Categorías disponibles:
+- Electronics (Electrónica)
+- Clothing (Ropa)
+- Home (Hogar)
+- Beauty (Belleza)
+- Sports (Deportes)
+- Books (Libros)
+- Toys (Juguetes)
+- Other (Otros)
 
-### Support
-- `GET /api/support/my-tickets` - Get user tickets
-- `POST /api/support` - Create support ticket
-- `GET /api/support/:id` - Get single ticket
-- `POST /api/support/:id/message` - Add message to ticket
+## 📊 Estados de Pedidos
 
-## 🤖 Telegram Bot Commands
+- `pending` - Pendiente
+- `processing` - Procesando
+- `shipped` - Enviado
+- `delivered` - Entregado
+- `cancelled` - Cancelado
 
-- `/start` - Start bot and show welcome message
-- `/stats` - View store statistics
-- `/orders` - View recent orders
-- `/pending` - View pending orders
-- `/users` - View recent users
-- `/products` - View products
-- `/tickets` - View support tickets
+## 💳 Métodos de Pago
 
-## 👥 Default Admin Setup
+- Tarjeta de crédito/débito
+- PayPal
+- Transferencia bancaria
+- Efectivo contra entrega
 
-To create an admin user, you can:
+## 🆘 Soporte
 
-1. Register normally through the frontend
-2. Manually update the user in MongoDB:
+Para soporte y consultas:
+- 📧 Email: soporte@shopflourite.com
+- 📱 WhatsApp: +34 XXX XXX XXX
+- 💬 Sistema de tickets en la web
 
-```javascript
-db.users.updateOne(
-  { email: "admin@shopflourite.com" },
-  { $set: { role: "admin" } }
-)
-```
+## 📝 Licencia
 
-## 🔒 Security Features
+Este proyecto está bajo la Licencia MIT.
 
-- JWT-based authentication
-- Password hashing with bcryptjs
-- CORS protection
-- Helmet security headers
-- File upload validation
-- Role-based access control
-- Input validation
+## 🙏 Créditos
 
-## 🎨 Customization
-
-### Changing Brand Colors
-
-Edit `frontend/src/styles/*.css` files to change:
-- Primary color: `#3498db`
-- Success color: `#27ae60`
-- Danger color: `#e74c3c`
-
-### Adding Payment Gateway
-
-Implement payment processing in `backend/src/routes/payments.js`:
-
-```javascript
-// Example: Stripe integration
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-```
-
-## 📝 License
-
-This project is licensed under the MIT License.
-
-## 👨‍💻 Support
-
-For support and questions:
-- Create an issue on GitHub
-- Email: support@shopflourite.com
-
-## 🙏 Acknowledgments
-
-Built with:
-- React
+Desarrollado con:
 - Node.js & Express
 - MongoDB & Mongoose
-- Telegram Bot API
-- React Router
-- Axios
-- React Icons
+- HTML5, CSS3, JavaScript
+- JWT para autenticación
+- Helmet para seguridad
 
 ---
 
-**ShopFlourite** - Your complete e-commerce solution 🛍️
+**ShopFlourite** - Tu tienda online con estilo profesional 🛍️✨
