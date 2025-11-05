@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
+    "seed": "node src/seed.js",
     "test": "echo \"No tests specified\" && exit 0"
   },
   "keywords": ["ecommerce", "api", "express", "mongodb"],

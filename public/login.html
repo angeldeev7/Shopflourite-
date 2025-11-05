@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Inicia sesión en ShopFlourite con tu número de WhatsApp de forma rápida y segura.">
+  <title>Iniciar Sesión | ShopFlourite</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="/index.html" class="logo neon-text">ShopFlourite</a>
+        
+        <nav>
+          <ul>
+            <li><a href="/index.html">Inicio</a></li>
+            <li><a href="/productos.html">Productos</a></li>
+            <li><a href="/novedades.html">Novedades</a></li>
+            <li><a href="/soporte.html">Soporte</a></li>
+            <li>
+              <a href="/checkout.html" style="position: relative;">
+                🛒 Carrito
+                <span class="cart-badge badge" style="position: absolute; top: -8px; right: -8px; display: none;">0</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login Section -->
+  <section class="login-section mt-5" style="padding: 120px 0; min-height: calc(100vh - 200px);">
+    <div class="container">
+      <div style="max-width: 500px; margin: 0 auto;">
+        <div class="card glass" style="padding: 50px;">
+          <h1 class="neon-text text-center mb-4" style="font-size: 36px;">
+            Iniciar Sesión
+          </h1>
+          
+          <p class="text-center mb-4" style="color: var(--text-secondary);">
+            Accede fácilmente con tu número de WhatsApp
+          </p>
+
+          <!-- WhatsApp Login -->
+          <div id="whatsapp-login" class="mb-4">
+            <form id="whatsapp-form">
+              <div class="form-group">
+                <label>📱 Número de WhatsApp</label>
+                <input 
+                  type="tel" 
+                  id="whatsapp-number" 
+                  placeholder="+34 XXX XXX XXX"
+                  required
+                  autocomplete="tel"
+                >
+                <small style="color: var(--text-secondary); display: block; margin-top: 5px;">
+                  Incluye el código de país (ej: +34)
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label>👤 Nombre</label>
+                <input 
+                  type="text" 
+                  id="user-name" 
+                  placeholder="Tu nombre"
+                  required
+                  autocomplete="name"
+                >
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">
+                Continuar con WhatsApp
+              </button>
+            </form>
+
+            <div class="text-center mt-4">
+              <p style="color: var(--text-secondary); font-size: 14px;">
+                Al continuar, recibirás un mensaje de confirmación por WhatsApp
+              </p>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div style="text-align: center; margin: 30px 0; position: relative;">
+            <div style="position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: var(--glass-border);"></div>
+            <span style="position: relative; background: var(--bg-glass); padding: 0 15px; color: var(--text-secondary);">
+              O
+            </span>
+          </div>
+
+          <!-- Traditional Login (Optional) -->
+          <div id="traditional-login">
+            <button 
+              class="btn btn-outline" 
+              style="width: 100%;"
+              onclick="toggleLoginMethod()"
+            >
+              Usar Email y Contraseña
+            </button>
+          </div>
+
+          <!-- Email Login Form (Hidden by default) -->
+          <div id="email-login-form" style="display: none;">
+            <form id="email-form">
+              <div class="form-group">
+                <label>📧 Email</label>
+                <input 
+                  type="email" 
+                  id="login-email" 
+                  placeholder="tu@email.com"
+                  autocomplete="email"
+                >
+              </div>
+
+              <div class="form-group">
+                <label>🔒 Contraseña</label>
+                <input 
+                  type="password" 
+                  id="login-password" 
+                  placeholder="••••••••"
+                  autocomplete="current-password"
+                >
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">
+                Iniciar Sesión
+              </button>
+
+              <button 
+                type="button"
+                class="btn btn-outline" 
+                style="width: 100%; margin-top: 15px;"
+                onclick="toggleLoginMethod()"
+              >
+                Volver a WhatsApp
+              </button>
+            </form>
+          </div>
+
+          <!-- Register Link -->
+          <div class="text-center mt-4">
+            <p style="color: var(--text-secondary);">
+              ¿No tienes cuenta? 
+              <a href="/registro.html" style="color: var(--primary); text-decoration: none;">
+                Regístrate aquí
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom text-center" style="padding: 20px 0;">
+        <p>&copy; 2024 ShopFlourite. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/main.js"></script>
+  <script>
+    // Check if already logged in
+    if (localStorage.getItem('token')) {
+      window.location.href = '/perfil.html';
+    }
+
+    let showingEmailLogin = false;
+
+    function toggleLoginMethod() {
+      showingEmailLogin = !showingEmailLogin;
+      document.getElementById('whatsapp-login').style.display = showingEmailLogin ? 'none' : 'block';
+      document.getElementById('traditional-login').style.display = showingEmailLogin ? 'none' : 'block';
+      document.getElementById('email-login-form').style.display = showingEmailLogin ? 'block' : 'none';
+    }
+
+    // WhatsApp Login
+    document.getElementById('whatsapp-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const phone = document.getElementById('whatsapp-number').value.trim();
+      const name = document.getElementById('user-name').value.trim();
+      
+      if (!ShopFlourite.isValidPhone(phone)) {
+        ShopFlourite.showAlert('Por favor ingresa un número de WhatsApp válido', 'error');
+        return;
+      }
+
+      if (!name) {
+        ShopFlourite.showAlert('Por favor ingresa tu nombre', 'error');
+        return;
+      }
+
+      try {
+        ShopFlourite.showLoading();
+        
+        // Simulate WhatsApp login (in production, this would send verification code via WhatsApp)
+        // For now, we'll create/login the user directly
+        try {
+          // Try to login with phone
+          const loginResponse = await ShopFlourite.apiRequest('/auth/whatsapp-login', {
+            method: 'POST',
+            body: JSON.stringify({ phone, name })
+          });
+          
+          // Save user data
+          localStorage.setItem('token', loginResponse.token);
+          localStorage.setItem('user', JSON.stringify(loginResponse.user));
+          ShopFlourite.saveWhatsAppPhone(phone);
+          
+          ShopFlourite.hideLoading();
+          ShopFlourite.showAlert('¡Bienvenido! Iniciando sesión...', 'success');
+          
+          setTimeout(() => {
+            window.location.href = '/perfil.html';
+          }, 1500);
+          
+        } catch (error) {
+          // If user doesn't exist, register them
+          const registerResponse = await ShopFlourite.apiRequest('/auth/register', {
+            method: 'POST',
+            body: JSON.stringify({
+              name,
+              email: `${phone.replace(/\D/g, '')}@whatsapp.temp`, // Temporary email
+              password: Math.random().toString(36).slice(-8), // Random password
+              phone
+            })
+          });
+          
+          localStorage.setItem('token', registerResponse.token);
+          localStorage.setItem('user', JSON.stringify(registerResponse.user));
+          ShopFlourite.saveWhatsAppPhone(phone);
+          
+          ShopFlourite.hideLoading();
+          ShopFlourite.showAlert('¡Cuenta creada! Bienvenido a ShopFlourite', 'success');
+          
+          setTimeout(() => {
+            window.location.href = '/perfil.html';
+          }, 1500);
+        }
+        
+      } catch (error) {
+        ShopFlourite.hideLoading();
+        console.error('Login error:', error);
+        ShopFlourite.showAlert('Error al iniciar sesión. Por favor intenta de nuevo.', 'error');
+      }
+    });
+
+    // Email Login
+    document.getElementById('email-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      
+      if (!ShopFlourite.isValidEmail(email)) {
+        ShopFlourite.showAlert('Por favor ingresa un email válido', 'error');
+        return;
+      }
+
+      if (!password) {
+        ShopFlourite.showAlert('Por favor ingresa tu contraseña', 'error');
+        return;
+      }
+
+      try {
+        ShopFlourite.showLoading();
+        
+        const response = await ShopFlourite.apiRequest('/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({ email, password })
+        });
+        
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
+        
+        ShopFlourite.hideLoading();
+        ShopFlourite.showAlert('¡Bienvenido de nuevo!', 'success');
+        
+        setTimeout(() => {
+          const redirect = new URLSearchParams(window.location.search).get('redirect');
+          window.location.href = redirect || '/perfil.html';
+        }, 1500);
+        
+      } catch (error) {
+        ShopFlourite.hideLoading();
+        console.error('Login error:', error);
+        ShopFlourite.showAlert(error.message || 'Email o contraseña incorrectos', 'error');
+      }
+    });
+  </script>
+</body>
+</html>

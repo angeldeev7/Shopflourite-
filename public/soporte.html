@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Centro de soporte de ShopFlourite. Contacta con nosotros para resolver tus dudas.">
+  <title>Soporte | ShopFlourite</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="/index.html" class="logo neon-text">ShopFlourite</a>
+        <nav>
+          <ul>
+            <li><a href="/index.html">Inicio</a></li>
+            <li><a href="/productos.html">Productos</a></li>
+            <li><a href="/novedades.html">Novedades</a></li>
+            <li><a href="/soporte.html" style="color: var(--primary);">Soporte</a></li>
+            <li><a href="/checkout.html" style="position: relative;">🛒 Carrito<span class="cart-badge badge" style="position: absolute; top: -8px; right: -8px; display: none;">0</span></a></li>
+            <li id="auth-links" style="display: flex; gap: 15px;"><a href="/login.html" class="btn btn-outline" style="padding: 8px 20px;">Iniciar Sesión</a></li>
+            <li id="user-links" style="display: none; gap: 15px;">
+              <span class="user-name" style="color: var(--primary);"></span>
+              <a href="/perfil.html">Perfil</a>
+              <a href="/mis-compras.html">Mis Compras</a>
+              <a href="#" onclick="logout(); return false;">Salir</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="mt-5" style="padding: 120px 0 60px;">
+    <div class="container">
+      <h1 class="neon-text text-center mb-4" style="font-size: 48px;">Centro de Soporte</h1>
+      <p class="text-center mb-5" style="color: var(--text-secondary); font-size: 18px;">¿Necesitas ayuda? Estamos aquí para ti</p>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 60px;">
+        <div class="card glass text-center" style="padding: 40px;">
+          <div style="font-size: 64px; margin-bottom: 20px;">💬</div>
+          <h3 class="mb-3">WhatsApp</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 20px;">Chatea con nosotros directamente</p>
+          <a href="https://wa.me/34XXXXXXXXX" class="btn btn-primary" target="_blank">Abrir WhatsApp</a>
+        </div>
+        
+        <div class="card glass text-center" style="padding: 40px;">
+          <div style="font-size: 64px; margin-bottom: 20px;">📧</div>
+          <h3 class="mb-3">Email</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 20px;">Escríbenos a:</p>
+          <a href="mailto:soporte@shopflourite.com" class="btn btn-primary">soporte@shopflourite.com</a>
+        </div>
+      </div>
+
+      <div class="card glass" style="padding: 50px; max-width: 800px; margin: 0 auto;">
+        <h2 class="neon-secondary text-center mb-4">Enviar Ticket de Soporte</h2>
+        
+        <form id="support-form">
+          <div class="form-group">
+            <label>Nombre *</label>
+            <input type="text" id="support-name" required>
+          </div>
+
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" id="support-email" required>
+          </div>
+
+          <div class="form-group">
+            <label>Asunto *</label>
+            <input type="text" id="support-subject" required>
+          </div>
+
+          <div class="form-group">
+            <label>Categoría *</label>
+            <select id="support-category" required>
+              <option value="">Selecciona una categoría</option>
+              <option value="order">Pedido</option>
+              <option value="product">Producto</option>
+              <option value="payment">Pago</option>
+              <option value="shipping">Envío</option>
+              <option value="account">Cuenta</option>
+              <option value="other">Otro</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Mensaje *</label>
+            <textarea id="support-message" rows="6" required placeholder="Describe tu problema o pregunta..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Ticket</button>
+        </form>
+      </div>
+
+      <div class="mt-5">
+        <h2 class="text-center mb-4" style="color: var(--primary);">Preguntas Frecuentes</h2>
+        <div class="grid grid-2">
+          <div class="card glass" style="padding: 30px;">
+            <h4 style="color: var(--primary); margin-bottom: 15px;">¿Cuánto tarda el envío?</h4>
+            <p style="color: var(--text-secondary);">Los envíos suelen tardar de 2 a 5 días hábiles dependiendo de tu ubicación.</p>
+          </div>
+          
+          <div class="card glass" style="padding: 30px;">
+            <h4 style="color: var(--primary); margin-bottom: 15px;">¿Puedo devolver un producto?</h4>
+            <p style="color: var(--text-secondary);">Sí, tienes 14 días desde la recepción para devolver cualquier producto.</p>
+          </div>
+          
+          <div class="card glass" style="padding: 30px;">
+            <h4 style="color: var(--primary); margin-bottom: 15px;">¿Cómo puedo rastrear mi pedido?</h4>
+            <p style="color: var(--text-secondary);">Puedes ver el estado de tu pedido en la sección "Mis Compras" de tu perfil.</p>
+          </div>
+          
+          <div class="card glass" style="padding: 30px;">
+            <h4 style="color: var(--primary); margin-bottom: 15px;">¿Qué métodos de pago aceptan?</h4>
+            <p style="color: var(--text-secondary);">Aceptamos tarjeta, PayPal, transferencia bancaria y efectivo contra entrega.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mt-5">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section"><h3>ShopFlourite</h3><p style="color: var(--text-secondary);">Tu tienda online de confianza.</p></div>
+        <div class="footer-section"><h3>Enlaces</h3><ul><li><a href="/productos.html">Productos</a></li><li><a href="/terminos.html">Términos</a></li></ul></div>
+        <div class="footer-section"><h3>Contacto</h3><ul><li>📧 info@shopflourite.com</li><li>📱 WhatsApp: +34 XXX XXX XXX</li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2024 ShopFlourite. Todos los derechos reservados.</p></div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script>
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user.name) document.getElementById('support-name').value = user.name;
+    if (user.email) document.getElementById('support-email').value = user.email;
+
+    document.getElementById('support-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const ticketData = {
+        name: document.getElementById('support-name').value,
+        email: document.getElementById('support-email').value,
+        subject: document.getElementById('support-subject').value,
+        category: document.getElementById('support-category').value,
+        message: document.getElementById('support-message').value
+      };
+
+      try {
+        ShopFlourite.showLoading();
+        await ShopFlourite.apiRequest('/support', { method: 'POST', body: JSON.stringify(ticketData) });
+        ShopFlourite.hideLoading();
+        ShopFlourite.showAlert('Ticket enviado correctamente. Te responderemos pronto.', 'success');
+        e.target.reset();
+      } catch (error) {
+        ShopFlourite.hideLoading();
+        ShopFlourite.showAlert('Error al enviar el ticket. Por favor intenta por WhatsApp o email.', 'error');
+      }
+    });
+  </script>
+</body>
+</html>

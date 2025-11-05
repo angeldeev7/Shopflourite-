@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gestiona tu perfil de ShopFlourite. Actualiza tu información personal y preferencias.">
+  <title>Mi Perfil | ShopFlourite</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="/index.html" class="logo neon-text">ShopFlourite</a>
+        
+        <nav>
+          <ul>
+            <li><a href="/index.html">Inicio</a></li>
+            <li><a href="/productos.html">Productos</a></li>
+            <li><a href="/novedades.html">Novedades</a></li>
+            <li><a href="/soporte.html">Soporte</a></li>
+            <li>
+              <a href="/checkout.html" style="position: relative;">
+                🛒 Carrito
+                <span class="cart-badge badge" style="position: absolute; top: -8px; right: -8px; display: none;">0</span>
+              </a>
+            </li>
+            <li id="user-links" style="display: flex; gap: 15px;">
+              <span class="user-name" style="color: var(--primary);"></span>
+              <a href="/perfil.html" style="color: var(--primary);">Perfil</a>
+              <a href="/mis-compras.html">Mis Compras</a>
+              <a href="#" onclick="logout(); return false;">Salir</a>
+            </li>
+          </ul>
+        </nav>
+        
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Profile Section -->
+  <section class="profile-section mt-5" style="padding: 120px 0 60px;">
+    <div class="container">
+      <h1 class="neon-text text-center mb-4" style="font-size: 48px;">
+        Mi Perfil
+      </h1>
+
+      <div style="display: grid; grid-template-columns: 300px 1fr; gap: 30px;">
+        <!-- Sidebar -->
+        <div>
+          <div class="card glass" style="padding: 30px; text-align: center;">
+            <div style="width: 120px; height: 120px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 48px;">
+              👤
+            </div>
+            <h3 id="profile-name" class="mb-2">Usuario</h3>
+            <p id="profile-email" style="color: var(--text-secondary); font-size: 14px;">email@ejemplo.com</p>
+            <div class="badge mt-3" id="profile-role">Usuario</div>
+          </div>
+
+          <div class="card glass mt-3" style="padding: 20px;">
+            <h4 class="mb-3" style="color: var(--primary);">Navegación</h4>
+            <ul style="list-style: none;">
+              <li style="margin-bottom: 10px;">
+                <a href="#" onclick="showSection('info'); return false;" style="color: var(--text-secondary); text-decoration: none;">
+                  📝 Información Personal
+                </a>
+              </li>
+              <li style="margin-bottom: 10px;">
+                <a href="/mis-compras.html" style="color: var(--text-secondary); text-decoration: none;">
+                  📦 Mis Compras
+                </a>
+              </li>
+              <li style="margin-bottom: 10px;">
+                <a href="/soporte.html" style="color: var(--text-secondary); text-decoration: none;">
+                  💬 Soporte
+                </a>
+              </li>
+              <li>
+                <a href="#" onclick="logout(); return false;" style="color: var(--error); text-decoration: none;">
+                  🚪 Cerrar Sesión
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div>
+          <!-- Personal Information -->
+          <div id="section-info" class="card glass" style="padding: 40px;">
+            <h2 class="neon-secondary mb-4">Información Personal</h2>
+            
+            <form id="profile-form">
+              <div class="grid grid-2">
+                <div class="form-group">
+                  <label>Nombre Completo *</label>
+                  <input type="text" id="edit-name" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Email *</label>
+                  <input type="email" id="edit-email" required>
+                </div>
+              </div>
+
+              <div class="grid grid-2">
+                <div class="form-group">
+                  <label>Teléfono / WhatsApp</label>
+                  <input type="tel" id="edit-phone">
+                </div>
+
+                <div class="form-group">
+                  <label>Fecha de Nacimiento</label>
+                  <input type="date" id="edit-birthdate">
+                </div>
+              </div>
+
+              <h3 class="mt-4 mb-3" style="color: var(--primary);">Dirección de Envío</h3>
+
+              <div class="form-group">
+                <label>Dirección Completa</label>
+                <input type="text" id="edit-address" placeholder="Calle, número, piso...">
+              </div>
+
+              <div class="grid grid-3">
+                <div class="form-group">
+                  <label>Ciudad</label>
+                  <input type="text" id="edit-city">
+                </div>
+
+                <div class="form-group">
+                  <label>Provincia</label>
+                  <input type="text" id="edit-state">
+                </div>
+
+                <div class="form-group">
+                  <label>Código Postal</label>
+                  <input type="text" id="edit-zip">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>País</label>
+                <input type="text" id="edit-country" value="España">
+              </div>
+
+              <div class="mt-4" style="display: flex; gap: 15px;">
+                <button type="submit" class="btn btn-primary">
+                  Guardar Cambios
+                </button>
+                <button type="button" class="btn btn-outline" onclick="loadUserData()">
+                  Cancelar
+                </button>
+              </div>
+            </form>
+
+            <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--glass-border);">
+
+            <h3 class="mb-3" style="color: var(--primary);">Cambiar Contraseña</h3>
+            
+            <form id="password-form">
+              <div class="form-group">
+                <label>Contraseña Actual</label>
+                <input type="password" id="current-password">
+              </div>
+
+              <div class="form-group">
+                <label>Nueva Contraseña</label>
+                <input type="password" id="new-password">
+              </div>
+
+              <div class="form-group">
+                <label>Confirmar Nueva Contraseña</label>
+                <input type="password" id="confirm-password">
+              </div>
+
+              <button type="submit" class="btn btn-secondary">
+                Cambiar Contraseña
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-5">
+    <div class="container">
+      <div class="footer-bottom text-center" style="padding: 20px 0;">
+        <p>&copy; 2024 ShopFlourite. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/main.js"></script>
+  <script>
+    // Check authentication
+    const token = localStorage.getItem('token');
+    if (!token) {
+      window.location.href = '/login.html?redirect=/perfil.html';
+    }
+
+    function loadUserData() {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      
+      document.getElementById('profile-name').textContent = user.name || 'Usuario';
+      document.getElementById('profile-email').textContent = user.email || '';
+      document.getElementById('profile-role').textContent = user.role === 'admin' ? 'Administrador' : 'Usuario';
+      
+      // Fill form
+      if (user.name) document.getElementById('edit-name').value = user.name;
+      if (user.email) document.getElementById('edit-email').value = user.email;
+      if (user.phone) document.getElementById('edit-phone').value = user.phone;
+      
+      if (user.address) {
+        if (user.address.street) document.getElementById('edit-address').value = user.address.street;
+        if (user.address.city) document.getElementById('edit-city').value = user.address.city;
+        if (user.address.state) document.getElementById('edit-state').value = user.address.state;
+        if (user.address.zipCode) document.getElementById('edit-zip').value = user.address.zipCode;
+        if (user.address.country) document.getElementById('edit-country').value = user.address.country;
+      }
+    }
+
+    // Update profile
+    document.getElementById('profile-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const profileData = {
+        name: document.getElementById('edit-name').value,
+        email: document.getElementById('edit-email').value,
+        phone: document.getElementById('edit-phone').value,
+        address: {
+          street: document.getElementById('edit-address').value,
+          city: document.getElementById('edit-city').value,
+          state: document.getElementById('edit-state').value,
+          zipCode: document.getElementById('edit-zip').value,
+          country: document.getElementById('edit-country').value
+        }
+      };
+
+      try {
+        ShopFlourite.showLoading();
+
+        const response = await ShopFlourite.apiRequest('/auth/profile', {
+          method: 'PUT',
+          body: JSON.stringify(profileData)
+        });
+
+        localStorage.setItem('user', JSON.stringify(response.user));
+        
+        ShopFlourite.hideLoading();
+        ShopFlourite.showAlert('Perfil actualizado correctamente', 'success');
+        loadUserData();
+        ShopFlourite.checkAuth();
+
+      } catch (error) {
+        ShopFlourite.hideLoading();
+        console.error('Profile update error:', error);
+        ShopFlourite.showAlert(error.message || 'Error al actualizar el perfil', 'error');
+      }
+    });
+
+    // Change password
+    document.getElementById('password-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const currentPassword = document.getElementById('current-password').value;
+      const newPassword = document.getElementById('new-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if (!currentPassword || !newPassword || !confirmPassword) {
+        ShopFlourite.showAlert('Por favor completa todos los campos', 'error');
+        return;
+      }
+
+      if (newPassword !== confirmPassword) {
+        ShopFlourite.showAlert('Las contraseñas no coinciden', 'error');
+        return;
+      }
+
+      if (newPassword.length < 6) {
+        ShopFlourite.showAlert('La contraseña debe tener al menos 6 caracteres', 'error');
+        return;
+      }
+
+      try {
+        ShopFlourite.showLoading();
+
+        await ShopFlourite.apiRequest('/auth/change-password', {
+          method: 'PUT',
+          body: JSON.stringify({
+            currentPassword,
+            newPassword
+          })
+        });
+
+        ShopFlourite.hideLoading();
+        ShopFlourite.showAlert('Contraseña cambiada correctamente', 'success');
+        
+        // Reset form
+        document.getElementById('password-form').reset();
+
+      } catch (error) {
+        ShopFlourite.hideLoading();
+        console.error('Password change error:', error);
+        ShopFlourite.showAlert(error.message || 'Error al cambiar la contraseña', 'error');
+      }
+    });
+
+    // Load user data on page load
+    document.addEventListener('DOMContentLoaded', loadUserData);
+  </script>
+</body>
+</html>
