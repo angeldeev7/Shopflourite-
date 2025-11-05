@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soporte - ShopFlourite</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/index.html" class="logo">ShopFlourite</a>
+      <div class="menu-toggle"><span></span><span></span><span></span></div>
+      <ul class="nav-menu">
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="/productos.html">Productos</a></li>
+        <li><a href="/soporte.html" class="active">Soporte</a></li>
+        <li class="guest-menu"><a href="/login.html" class="btn btn-outline">Ingresar</a></li>
+        <li class="user-menu" style="display: none;"><a href="/perfil.html">Perfil</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div style="padding: 120px 0; min-height: 100vh;">
+    <div class="container">
+      <h1 class="section-title">Centro de Soporte</h1>
+      <div class="grid grid-2">
+        <div class="card glass">
+          <h2>📧 Envíanos un Mensaje</h2>
+          <form id="support-form">
+            <div class="form-group">
+              <label class="form-label">Asunto</label>
+              <input type="text" id="subject" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Categoría</label>
+              <select id="category" class="form-control">
+                <option value="order">Pedido</option>
+                <option value="product">Producto</option>
+                <option value="payment">Pago</option>
+                <option value="technical">Técnico</option>
+                <option value="other">Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Mensaje</label>
+              <textarea id="message" class="form-control" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </form>
+        </div>
+        <div>
+          <div class="card glass">
+            <h3>💬 Contacto Directo</h3>
+            <p class="text-secondary">¿Necesitas ayuda inmediata?</p>
+            <ul style="list-style: none; margin-top: 1rem;">
+              <li style="margin-bottom: 1rem;">
+                <strong>WhatsApp:</strong><br>
+                <a href="https://wa.me/521234567890" style="color: var(--neon-green);">+52 123 456 7890</a>
+              </li>
+              <li style="margin-bottom: 1rem;">
+                <strong>Telegram:</strong><br>
+                <a href="https://t.me/shopflourite" style="color: var(--neon-blue);">@shopflourite</a>
+              </li>
+              <li>
+                <strong>Email:</strong><br>
+                <a href="mailto:soporte@shopflourite.com" style="color: var(--neon-pink);">soporte@shopflourite.com</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card glass" style="margin-top: 1rem;">
+            <h3>❓ Preguntas Frecuentes</h3>
+            <details style="margin-bottom: 0.5rem;">
+              <summary style="cursor: pointer; color: var(--neon-green);">¿Cómo realizo un pedido?</summary>
+              <p class="text-secondary">Navega por nuestros productos, agrégalos al carrito y procede al checkout.</p>
+            </details>
+            <details style="margin-bottom: 0.5rem;">
+              <summary style="cursor: pointer; color: var(--neon-green);">¿Cuáles son los métodos de pago?</summary>
+              <p class="text-secondary">Aceptamos transferencia bancaria, tarjetas y pago contra entrega.</p>
+            </details>
+            <details>
+              <summary style="cursor: pointer; color: var(--neon-green);">¿Cuánto tarda el envío?</summary>
+              <p class="text-secondary">El envío estándar toma de 3 a 5 días hábiles.</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+  <script>
+    document.getElementById('support-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      if (!auth.isAuthenticated()) {
+        showAlert('Debes iniciar sesión para enviar un mensaje', 'error');
+        setTimeout(() => window.location.href = '/login.html?redirect=/soporte.html', 1500);
+        return;
+      }
+
+      try {
+        await api.createTicket({
+          subject: document.getElementById('subject').value,
+          category: document.getElementById('category').value,
+          messages: [{
+            message: document.getElementById('message').value
+          }]
+        });
+        
+        showAlert('Ticket creado exitosamente. Te contactaremos pronto.', 'success');
+        e.target.reset();
+      } catch (error) {
+        showAlert('Error al crear ticket', 'error');
+      }
+    });
+  </script>
+</body>
+</html>

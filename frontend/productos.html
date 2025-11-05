@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Catálogo de productos - ShopFlourite">
+  <title>Productos - ShopFlourite</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/index.html" class="logo">ShopFlourite</a>
+      
+      <div class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <ul class="nav-menu">
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="/productos.html" class="active">Productos</a></li>
+        <li><a href="/novedades.html">Novedades</a></li>
+        <li><a href="/soporte.html">Soporte</a></li>
+        
+        <li class="guest-menu">
+          <a href="/login.html" class="btn btn-outline">Ingresar</a>
+        </li>
+        <li class="guest-menu">
+          <a href="/registro.html" class="btn btn-primary">Registrarse</a>
+        </li>
+        
+        <li class="user-menu" style="display: none;">
+          <a href="/perfil.html">Mi Perfil</a>
+        </li>
+        <li class="user-menu" style="display: none;">
+          <a href="/mis-compras.html">Mis Compras</a>
+        </li>
+        <li class="user-menu" style="display: none;">
+          <a href="#" onclick="auth.logout(); return false;">Salir</a>
+        </li>
+        
+        <li>
+          <a href="/checkout.html" style="position: relative;">
+            🛒
+            <span class="cart-badge">0</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div style="padding-top: 100px; min-height: 100vh;">
+    <div class="container">
+      <h1 class="section-title">Catálogo de Productos</h1>
+      
+      <!-- Filters -->
+      <div class="card glass" style="margin-bottom: 2rem;">
+        <div class="grid grid-3">
+          <div class="form-group">
+            <label class="form-label">Buscar</label>
+            <input type="text" id="search" class="form-control" placeholder="Buscar productos...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Categoría</label>
+            <select id="category" class="form-control">
+              <option value="">Todas</option>
+              <option value="electronics">Electrónica</option>
+              <option value="clothing">Ropa</option>
+              <option value="home">Hogar</option>
+              <option value="beauty">Belleza</option>
+              <option value="sports">Deportes</option>
+              <option value="books">Libros</option>
+              <option value="toys">Juguetes</option>
+              <option value="other">Otros</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ordenar por</label>
+            <select id="sort" class="form-control">
+              <option value="name">Nombre</option>
+              <option value="price_asc">Precio: Menor a Mayor</option>
+              <option value="price_desc">Precio: Mayor a Menor</option>
+              <option value="rating">Mejor Valorados</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div id="products-container" class="grid grid-4">
+        <div class="spinner" style="grid-column: 1 / -1;"></div>
+      </div>
+
+      <!-- Pagination -->
+      <div id="pagination" class="text-center" style="margin-top: 2rem; display: none;">
+        <button id="prev-page" class="btn btn-secondary" style="margin: 0 0.5rem;">Anterior</button>
+        <span id="page-info" style="margin: 0 1rem; color: var(--text-secondary);"></span>
+        <button id="next-page" class="btn btn-secondary" style="margin: 0 0.5rem;">Siguiente</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>ShopFlourite</h3>
+          <p class="text-secondary">Tu tienda online de confianza con los mejores productos y ofertas exclusivas.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Enlaces</h3>
+          <ul>
+            <li><a href="/productos.html">Productos</a></li>
+            <li><a href="/novedades.html">Novedades</a></li>
+            <li><a href="/soporte.html">Soporte</a></li>
+            <li><a href="/terminos.html">Términos y Condiciones</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contacto</h3>
+          <ul>
+            <li>📧 soporte@shopflourite.com</li>
+            <li>📱 WhatsApp: +52 123 456 7890</li>
+            <li>💬 Telegram: @shopflourite</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 ShopFlourite. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/utils.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+  <script>
+    let currentPage = 1;
+    let totalPages = 1;
+    const perPage = 12;
+
+    // Load products with filters
+    async function loadProducts() {
+      const search = document.getElementById('search').value;
+      const category = document.getElementById('category').value;
+      const sort = document.getElementById('sort').value;
+
+      const params = {
+        page: currentPage,
+        limit: perPage
+      };
+
+      if (search) params.search = search;
+      if (category) params.category = category;
+      if (sort) {
+        if (sort === 'price_asc') {
+          params.sort = 'price';
+        } else if (sort === 'price_desc') {
+          params.sort = '-price';
+        } else if (sort === 'rating') {
+          params.sort = '-rating';
+        } else {
+          params.sort = 'name';
+        }
+      }
+
+      try {
+        showLoading(document.getElementById('products-container'));
+        const data = await api.getProducts(params);
+        
+        totalPages = data.pages || 1;
+        displayProducts(data.products || []);
+        updatePagination();
+      } catch (error) {
+        console.error('Error loading products:', error);
+        document.getElementById('products-container').innerHTML = 
+          '<p class="alert alert-error" style="grid-column: 1 / -1;">Error al cargar productos. Inténtalo de nuevo.</p>';
+      }
+    }
+
+    function displayProducts(products) {
+      const container = document.getElementById('products-container');
+      
+      if (products.length === 0) {
+        container.innerHTML = '<p class="text-center text-secondary" style="grid-column: 1 / -1;">No se encontraron productos.</p>';
+        return;
+      }
+
+      container.innerHTML = products.map(product => `
+        <div class="card product-card fade-in">
+          ${product.featured ? '<span class="product-badge">Destacado</span>' : ''}
+          ${product.stock === 0 ? '<span class="product-badge" style="background: var(--text-muted);">Agotado</span>' : ''}
+          <img src="${product.images && product.images[0] || '/images/products/placeholder.jpg'}" 
+               alt="${product.name}"
+               onerror="handleImageError(this)">
+          <div class="product-info">
+            <h3 class="product-title">${product.name}</h3>
+            <p class="text-secondary">${truncateText(product.shortDescription || product.description, 60)}</p>
+            <div style="margin-top: 0.5rem;">
+              <span>${generateStars(product.rating || 0)}</span>
+              <span class="text-muted" style="font-size: 0.9rem; margin-left: 0.5rem;">(${product.reviewCount || 0})</span>
+            </div>
+            <div style="margin-top: 1rem;">
+              <span class="product-price">${formatCurrency(product.price)}</span>
+              ${product.originalPrice ? `<span class="product-price-old">${formatCurrency(product.originalPrice)}</span>` : ''}
+            </div>
+            <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+              <a href="/producto-detalle.html?id=${product._id}" class="btn btn-primary" style="flex: 1;">Ver Detalles</a>
+              ${product.stock > 0 ? `
+                <button onclick="cart.addItem(${JSON.stringify(product).replace(/"/g, '&quot;')})" class="btn btn-outline">🛒</button>
+              ` : ''}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function updatePagination() {
+      const pagination = document.getElementById('pagination');
+      const pageInfo = document.getElementById('page-info');
+      const prevBtn = document.getElementById('prev-page');
+      const nextBtn = document.getElementById('next-page');
+
+      if (totalPages > 1) {
+        pagination.style.display = 'block';
+        pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
+      } else {
+        pagination.style.display = 'none';
+      }
+    }
+
+    // Event listeners
+    document.getElementById('search').addEventListener('input', debounce(() => {
+      currentPage = 1;
+      loadProducts();
+    }, 500));
+
+    document.getElementById('category').addEventListener('change', () => {
+      currentPage = 1;
+      loadProducts();
+    });
+
+    document.getElementById('sort').addEventListener('change', () => {
+      currentPage = 1;
+      loadProducts();
+    });
+
+    document.getElementById('prev-page').addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        loadProducts();
+        scrollToTop();
+      }
+    });
+
+    document.getElementById('next-page').addEventListener('click', () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        loadProducts();
+        scrollToTop();
+      }
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check for category from URL
+      const urlCategory = getQueryParam('category');
+      if (urlCategory) {
+        document.getElementById('category').value = urlCategory;
+      }
+      
+      loadProducts();
+    });
+  </script>
+</body>
+</html>

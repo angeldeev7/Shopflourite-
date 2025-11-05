@@ -6,24 +6,41 @@ const morgan = require('morgan');
 const compression = require('compression');
 const dotenv = require('dotenv');
 const path = require('path');
+const rateLimit = require('express-rate-limit');
 
 dotenv.config();
 
 const app = express();
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again later.'
+});
+
+app.use('/api/', limiter);
 
 // Middleware
 app.use(helmet({
   contentSecurityPolicy: false, // Disable CSP for development
 }));
 app.use(cors({
+app.use(cors({
   origin: process.env.FRONTEND_URL || '*',
+  credentials: true
+}));
+ 
   credentials: true
 }));
 app.use(compression());
 app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve static files
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use(express.static(path.join(__dirname, '../../frontend')));
 
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, '../../public')));
@@ -78,9 +95,13 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({ error: { message: 'Route not found', status: 404 } });
+// Serve frontend for all non-API routes (SPA support)
+app.get('*', (req, res) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(__dirname, '../../frontend/index.html'));
+  } else {
+    res.status(404).json({ error: { message: 'API route not found', status: 404 } });
+  }
 });
 
 const PORT = process.env.PORT || 5000;
